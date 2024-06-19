@@ -50,7 +50,8 @@ const signup = asyncHandler(async (req, res) => {
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: [newUser.email], // Make the email dynamic
+      to: [newUser.email],
+      
       subject: "Please verify your account",
       html: `<h1>Hello ${firstName}</h1>
       <p>Click on the following link to verify your account: 
@@ -249,7 +250,7 @@ const updateUserById = async (req, res) => {
         password,
         telephone,
         role,
-        picture: req.file.filename,
+        //picture: req.file.filename,
         //write a new function for the picture upload
         address,
         trainerType,
@@ -271,9 +272,7 @@ const updateUserById = async (req, res) => {
 const getPictureById = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("id", id);
     const user = await User.findOne({ _id: id });
-    console.log(user);
     const picturePath = path.join(__dirname, `../uploads/${user.picture}`);
 
     // console.log(picturePath)
