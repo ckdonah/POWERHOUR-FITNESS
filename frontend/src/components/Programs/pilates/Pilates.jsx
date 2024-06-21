@@ -1,6 +1,7 @@
 import React from "react";
 import pilatesImage from "../../../assets/pilates.jpeg";
 import { Link } from "react-router-dom";
+
 function Pilates() {
   return (
     <>
@@ -10,7 +11,7 @@ function Pilates() {
         </div>
         <div>
           <div className="trainer-info">
-            <h4>Trainer Name: Hassan .M </h4>
+            <h4>Trainer Name: Shagy .S </h4>
           </div>
           <section className="trainer-row">
             <Link to="/programs/pilates/pilates-courses"><div className="cours-card">

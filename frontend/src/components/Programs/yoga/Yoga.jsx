@@ -25,7 +25,7 @@ function Yoga() {
             </Link>
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Zen Yoga Journey</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -33,7 +33,7 @@ function Yoga() {
             </Link>
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Mindful Yoga Flow</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -46,7 +46,7 @@ function Yoga() {
           <section className="trainer-row">
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Sunrise Yoga Retreat</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -54,7 +54,7 @@ function Yoga() {
             </Link>
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Harmony Yoga Practice</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -62,7 +62,7 @@ function Yoga() {
             </Link>
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Serenity Yoga Series</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -75,7 +75,7 @@ function Yoga() {
           <section className="trainer-row">
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Energize Yoga Essentials</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -83,7 +83,7 @@ function Yoga() {
             </Link>
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Blissful Yoga Sessions</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>
@@ -91,7 +91,7 @@ function Yoga() {
             </Link>
             <Link to="/programs/yoga/yoga-courses">
               <div className="cours-card">
-                <h3>hata yoga</h3>
+                <h3>Peaceful Warrior Yoga</h3>
                 <img src={yogaImage} width={300} />
                 <p>Start Date:</p>
                 <p>End date</p>

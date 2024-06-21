@@ -13,69 +13,71 @@ function Cardio() {
         </div>
         <div>
           <div className="trainer-info">
-            <h4>Trainer Name: Hassan .M </h4>
+            <h4>Trainer Name: Alex .R </h4>
           </div>
           <section className="trainer-row">
-            <Link to="/programs/yoga/yoga-courses"><div className="cours-card">
-              <h3>hata yoga</h3>
-              <img src={cardioImage} width={300} />
-              <p>Start Date:</p>
-              <p>End date</p>
-            </div> </Link>
+            <Link to="/programs/cardio/cardio-courses">
+              <div className="cours-card">
+                <h3>Heart-Pumping Cardio Challenge</h3>
+                <img src={cardioImage} width={300} />
+                <p>Start Date:</p>
+                <p>End date</p>
+              </div>{" "}
+            </Link>
             <div className="cours-card">
-              <h3>hata yoga</h3>
+              <h3>Cardio Burn Bootcamp</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
             <div className="cours-card">
-              <h3>hata yoga</h3>
+              <h3>High-Intensity Cardio Blast</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
           </section>
           <div className="trainer-info">
-            <h4>Trainer Name: Godwin .O </h4>
+            <h4>Trainer Name: Paul .M </h4>
           </div>
           <section className="trainer-row">
-          <div className="cours-card">
-              <h3>hata yoga</h3>
+            <div className="cours-card">
+              <h3>Cardio Power Hour</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
             <div className="cours-card">
-              <h3>hata yoga</h3>
+              <h3>Ultimate Cardio Workout</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
             <div className="cours-card">
-              <h3>hata yoga</h3>
+              <h3>Cardio Crush Fitness</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
           </section>
           <div className="trainer-info">
-            <h4>Trainer Name: Dany .M </h4>
+            <h4>Trainer Name: Samuel .F</h4>
           </div>
           <section className="trainer-row">
-          <div className="cours-card">
-              <h3>hata yoga</h3>
+            <div className="cours-card">
+              <h3>Sweat and Burn Cardio</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
             <div className="cours-card">
-              <h3>hata yoga</h3>
+              <h3>Dynamic Cardio Circuit</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>
             </div>
             <div className="cours-card">
-              <h3>hata yoga</h3>
+              <h3>Cardio Maxx</h3>
               <img src={cardioImage} width={300} />
               <p>Start Date:</p>
               <p>End date</p>

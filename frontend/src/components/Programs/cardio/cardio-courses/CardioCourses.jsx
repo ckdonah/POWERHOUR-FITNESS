@@ -1,12 +1,12 @@
 import React from "react";
 import Logo from "../../../../assets/logo.png";
 
-function PilatesCourses() {
+function CardioCourses() {
     return(
     
-        <h1>Hello Pilates</h1>
+        <h1>Hello Cardio</h1>
        
     )
 }
 
-export default PilatesCourses;
+export default CardioCourses;

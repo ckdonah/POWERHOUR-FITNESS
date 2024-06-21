@@ -20,8 +20,9 @@ import "./App.css";
 import Yoga from "./components/Programs/yoga/Yoga.jsx";
 import YogaCourses from "./components/Programs/yoga/yoga-courses/YogaCourses.jsx";
 import Cardio from "./components/Programs/cardio/Cardio.jsx";
-import PilatesCourses from "./components/Programs/pilates/pilates-courses/PilatesCourses.jsx";
+import CardioCourses from "./components/Programs/cardio/cardio-courses/CardioCourses.jsx";
 import Pilates from "./components/Programs/pilates/Pilates.jsx";
+import PilatesCourses from "./components/Programs/pilates/pilates-courses/PilatesCourses.jsx";
 
 function App() {
   return (
@@ -69,11 +70,38 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/programs/yoga" element={<Yoga />} />
-          <Route path="/programs/yoga/yoga-courses" element={<YogaCourses />} />
+          {/* <Route path="/programs/yoga" element={<Yoga />} />
+          <Route path="/programs/yoga/yoga-courses" element={<YogaCourses />} /> */}
+          <Route path="/programs">
+            <Route path="yoga">
+              <Route
+                path=":course/:trainer/:id/*"
+                element={<YogaCourses />}
+              />
+              <Route
+                path=":course/:trainer/*"
+                element={<YogaCourses />}
+              />
+              <Route
+                path=":course/*"
+                element={<YogaCourses />}
+              />
+              <Route
+                path=""
+                element={<Yoga />}
+              />
+            </Route>
+            <Route path="cardio" element={<Cardio />} />
+            <Route path="pilates" element={<Pilates />} />
+            
+            <Route
+              path=""
+              element={<Programs />}
+            />
+          </Route>
 
           <Route path="/programs/cardio" element={<Cardio />} />
-          <Route path="/programs/cardio/cardio-courses" element={<Cardio />} />
+          <Route path="/programs/cardio/cardio-courses" element={<CardioCourses />} />
           
           <Route path="/programs/pilates" element={<Pilates />} />
           <Route path="/programs/pilates/pilates-courses" element={<PilatesCourses />} />
