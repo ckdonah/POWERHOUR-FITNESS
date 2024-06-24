@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHandPointRight } from "@fortawesome/free-solid-svg-icons";
 import "./Testimonials.css";
 import PrevNextButtons from "./PrevNextButtons";
+import defaultProfileImage from '../../assets/profile.jpg';
 
 function Testimonials() {
   const [reviews, setReviews] = useState([]);
@@ -55,7 +56,7 @@ function Testimonials() {
   useEffect(() => {
     console.log('Current Review:', currentReview);
     if (currentReview.userId) {
-      console.log('Image URL:', `http://localhost:7500/user/picture/${currentReview.userId.picture}`);
+      console.log('Image URL:', `http://localhost:7500/uploads/${currentReview.userId.picture}`);
     }
   }, [currentReview]);
 
@@ -80,18 +81,18 @@ function Testimonials() {
         <div className="review-display">
           <div className="review-container">
             <div className="img-container">
-              {currentReview.userId && currentReview.userId._id ? (
+              {currentReview.userId && currentReview.userId.picture ? (
                 <img
-                  src={`http://localhost:7500/user/picture/${currentReview.userId._id}`} 
+                  src={`http://localhost:7500/uploads/${currentReview.userId.picture}`} 
                   alt={`${currentReview.userId.firstName} ${currentReview.userId.lastName}`}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = 'fallback-image-url.jpg'; // Optional fallback image
+                    e.target.src = defaultProfileImage; // Use the default profile image
                   }}
                 />
               ) : (
                 <img
-                  src='fallback-image-url.jpg'
+                  src={defaultProfileImage}
                   alt='Default User'
                 />
               )}

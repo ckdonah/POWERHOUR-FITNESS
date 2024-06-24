@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSnackbar } from 'notistack';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import ReactStars from "react-stars";
 import "./WriteReview.css";
 
 const WriteReview = () => {
@@ -34,6 +35,10 @@ const WriteReview = () => {
       fetchReview();
     }
   }, [id, enqueueSnackbar]);
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +76,9 @@ const WriteReview = () => {
 
   return (
     <div className="write-review-container">
+      <div className="back-to-dashboard">
+        <Link to="/dashboard/member" style={{ fontSize: '24px', textDecoration: 'none' }}>{"<"}</Link>
+      </div>
       <h2>{id ? "Update Review" : "Write a Review"}</h2>
       <form onSubmit={handleSubmit}>
         <label>

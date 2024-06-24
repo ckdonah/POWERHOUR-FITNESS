@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { SnackbarProvider } from 'notistack';
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -30,63 +25,74 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div>
-                <Header />
-                <Hero />
-                <Programs />
-                <Trainers />
-                <Offers />
-                <Testimonials />
-                <Contact />
-                <Footer />
-              </div>
-            }
-          />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/dashboard/admin"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/trainer"
-            element={
-              <ProtectedRoute role="trainer">
-                <TrainerDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/member"
-            element={
-              <ProtectedRoute role="member">
-                <MemberDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/programs">
+    <SnackbarProvider maxSnack={3}>
+      <Router>
+        <AuthProvider>
+          <Routes>
             <Route
-              path=":program/:course/:trainer/:id/*"
-              element={<Course />}
+              path="/"
+              element={
+                <div>
+                  <Header />
+                  <Hero />
+                  <Programs />
+                  <Trainers />
+                  <Offers />
+                  <Testimonials />
+                  <Contact />
+                  <Footer />
+                </div>
+              }
             />
-            <Route path=":program/*" element={<Program />} />
-            <Route path="" element={<Programs />} />
-          </Route>
-
-          <Route path="*" element={<Navigate to="/" replace={true} />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/dashboard/admin"
+              element={
+                <ProtectedRoute role="admin">
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/trainer"
+              element={
+                <ProtectedRoute role="trainer">
+                  <TrainerDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/member"
+              element={
+                <ProtectedRoute role="member">
+                  <MemberDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/update-profile"
+              element={
+                <ProtectedRoute role="member">
+                  <UpdateProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/write-review" element={<ProtectedRoute role="member"><WriteReview /></ProtectedRoute>} />
+            <Route path="/write-review/:id" element={<ProtectedRoute role="member"><WriteReview /></ProtectedRoute>} />
+            <Route path="/programs">
+              <Route
+                path=":program/:course/:trainer/:id/*"
+                element={<Course />}
+              />
+              <Route path=":program/*" element={<Program />} />
+              <Route path="" element={<Programs />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
+          </Routes>
+        </AuthProvider>
+      </Router>
+    </SnackbarProvider>
   );
 }
 

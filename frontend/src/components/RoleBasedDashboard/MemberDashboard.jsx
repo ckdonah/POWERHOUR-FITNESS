@@ -93,7 +93,7 @@ const MemberDashboard = () => {
           {menuOpen && (
             <div className="dropdown-menu">
               <button onClick={() => handleMenuClick('/my-bookings')}>Book Program</button>
-              <button onClick={() => handleMenuClick('/update-personal-info')}>Update Personal Info</button>
+              <button onClick={() => handleMenuClick('/update-profile')}>Update Personal Info</button>
               <button onClick={() => handleMenuClick('/write-review')}>Write a review</button>
               <button onClick={handleDeleteAccount}>Delete Account</button>
               <hr />
