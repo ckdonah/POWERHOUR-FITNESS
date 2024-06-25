@@ -7,14 +7,14 @@
   border-radius: 8px;
 }
 
-.back-to-dashboard {
+/* .back-to-dashboard {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-}
+} */
 
 .back-to-dashboard a {
-  font-size: 24px;
+  font-size: 40px;
   color: #333;
   text-decoration: none;
 }
@@ -48,7 +48,7 @@ h2 {
 }
 
 .update-button {
-  background-color: #007bff;
+  background-color: #ff00ff;
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -58,7 +58,7 @@ h2 {
 }
 
 .update-button:hover {
-  background-color: #0056b3;
+  background-color: #ff00ff;
 }
 
 .filepond--image-preview-wrapper {

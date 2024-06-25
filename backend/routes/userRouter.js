@@ -42,7 +42,6 @@ router.get("/verify/:token", verifyToken);
 router.get("/getprotected", isAuth, getProtected);
 
 
-// Dashboard data endpoints
 router.get("/dashboard/admin", isAuth, getAdminDashboardData);
 router.get("/dashboard/trainer", isAuth, getTrainerDashboardData);
 router.get("/dashboard/member", isAuth, getMemberDashboardData);

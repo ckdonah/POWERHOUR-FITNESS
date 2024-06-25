@@ -8,6 +8,18 @@
     margin-top: 10rem;
   }
   
+
+  .back-to-dashboard {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    font-size: 80px;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
   .write-review-container h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -38,7 +50,7 @@
   
   .write-review-container button {
     padding: 10px;
-    background-color: #007bff;
+    background-color: #ff00ff;
     color: white;
     border: none;
     border-radius: 4px;
@@ -47,7 +59,7 @@
   }
   
   .write-review-container button:hover {
-    background-color: #0056b3;
+    background-color: #ff00ff;
   }
   
 
