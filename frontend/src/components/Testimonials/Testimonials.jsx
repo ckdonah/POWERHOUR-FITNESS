@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHandPointRight } from "@fortawesome/free-solid-svg-icons";
 import "./Testimonials.css";
 import PrevNextButtons from "./PrevNextButtons";
+import defaultProfileImage from '../../assets/profile.jpg';
 
 function Testimonials() {
   const [reviews, setReviews] = useState([]);
@@ -111,6 +112,11 @@ function Testimonials() {
                     e.target.onerror = null;
                     e.target.src = ""; // Handle image error gracefully
                   }}
+                />
+              ) : (
+                <img
+                  src='fallback-image-url.jpg'
+                  alt='Default User'
                 />
               )}
             </div>
