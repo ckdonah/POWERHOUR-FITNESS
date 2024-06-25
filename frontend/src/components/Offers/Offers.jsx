@@ -67,9 +67,9 @@ const Offers = () => {
             <div>
               <span>See more benefits</span>
             </div>
-            <dive className="offer-btn">  
+            <div className="offer-btn">  
             <Link to="/signup"><button className="btn-1">Join now</button></Link>
-            </dive>
+            </div>
           </div>
         ))}
       </div>
