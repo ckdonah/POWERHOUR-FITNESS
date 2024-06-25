@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHandPointRight } from "@fortawesome/free-solid-svg-icons";
 import "./Testimonials.css";
 import PrevNextButtons from "./PrevNextButtons";
-import defaultProfileImage from '../../assets/profile.jpg';
 
 function Testimonials() {
   const [reviews, setReviews] = useState([]);
@@ -41,11 +40,11 @@ function Testimonials() {
     );
   };
 
-  const currentReview = reviews.length > 0 && reviews[currentIndex] ? reviews[currentIndex] : {};
+  const currentReview = reviews.length > 0 ? reviews[currentIndex] : null;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex < reviews.length - 1 ? prevIndex + 1 : 0
       );
     }, 5000); // Change the testimonial every 5 seconds
@@ -55,10 +54,33 @@ function Testimonials() {
 
   useEffect(() => {
     console.log('Current Review:', currentReview);
-    if (currentReview.userId) {
+    if (currentReview && currentReview.userId) {
       console.log('Image URL:', `http://localhost:7500/uploads/${currentReview.userId.picture}`);
     }
   }, [currentReview]);
+
+  if (!Array.isArray(reviews) || reviews.length === 0) {
+    return (
+      <div className="review-page" id="testimonials">
+        <div className="t-header">
+          <h2>Testimonials</h2>
+          <span className="text-5">
+            To provide you always better services than before, <br />write us your
+            feedbacks please and rate the app too.
+          </span>
+          <span className="text-6">Tell others what you think</span>
+          <p className="write-review" onClick={handleReviewClick}>
+            <FontAwesomeIcon
+              icon={faHandPointRight}
+              style={{ color: "#ff00ff", fontSize: "20px", marginRight: "5px" }}
+            />
+            Write your review
+          </p>
+        </div>
+        <div>No testimonials available at the moment.</div>
+      </div>
+    );
+  }
 
   return (
     <div className="review-page" id="testimonials">
@@ -77,23 +99,18 @@ function Testimonials() {
           Write your review
         </p>
       </div>
-      {Array.isArray(reviews) && reviews.length > 0 && (
+      {currentReview && (
         <div className="review-display">
           <div className="review-container">
             <div className="img-container">
-              {currentReview.userId && currentReview.userId.picture ? (
+              {currentReview.userId && currentReview.userId.picture && (
                 <img
-                  src={`http://localhost:7500/uploads/${currentReview.userId.picture}`} 
+                  src={`http://localhost:7500/${currentReview.userId.picture}`} 
                   alt={`${currentReview.userId.firstName} ${currentReview.userId.lastName}`}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = defaultProfileImage; // Use the default profile image
+                    e.target.src = ""; // Handle image error gracefully
                   }}
-                />
-              ) : (
-                <img
-                  src={defaultProfileImage}
-                  alt='Default User'
                 />
               )}
             </div>
@@ -106,7 +123,7 @@ function Testimonials() {
                   <span className="dynamic-star" key={index}>⭐</span>
                 ))}
               </div>
-              <p className="review-message">{currentReview.message}</p>
+              <p className="review-message">{currentReview.message || "No message provided."}</p>
             </div>
           </div>
           <div className="slider-container">

@@ -37,7 +37,7 @@ const signup = asyncHandler(async (req, res) => {
       email,
       password: hashedPassword,
       picture: "default.jpg",
-      role,
+
     });
 
     await newUser.save();

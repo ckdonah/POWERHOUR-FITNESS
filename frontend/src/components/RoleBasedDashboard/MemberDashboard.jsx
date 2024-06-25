@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import { AuthContext } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import '../../components/RoleBasedDashboard/MemberDashboard.css';
-// import defaultProfileImage from '../../assets/profile.jpg'; 
+import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import "../../components/RoleBasedDashboard/MemberDashboard.css";
+import defaultProfileImage from "../../assets/profile.jpg";
 
 const MemberDashboard = () => {
   const { user, logout } = useContext(AuthContext);
@@ -12,38 +12,41 @@ const MemberDashboard = () => {
     completedClasses: 0,
   });
   const [bookings, setBookings] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get('http://localhost:7500/user/dashboard/member', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:7500/user/dashboard/member",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const { data } = response;
         setDashboardData(data);
       } catch (error) {
-        console.error('Error fetching dashboard data', error);
-        setError('Error fetching dashboard data');
+        console.error("Error fetching dashboard data", error);
+        setError("Error fetching dashboard data");
       }
     };
 
     const fetchBookings = async () => {
       try {
-        const response = await axios.get('http://localhost:7500/booking', {
+        const response = await axios.get("http://localhost:7500/booking", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         const { data } = response;
         setBookings(data);
       } catch (error) {
-        console.error('Error fetching bookings', error);
-        setError('Error fetching bookings');
+        console.error("Error fetching bookings", error);
+        setError("Error fetching bookings");
       }
     };
 
@@ -62,39 +65,58 @@ const MemberDashboard = () => {
   };
 
   const handleDeleteAccount = async () => {
-    console.log('Delete button clicked');
     try {
       const url = `http://localhost:7500/user/${user._id}`;
-      console.log('Deleting account with URL:', url);
       const response = await axios.delete(url, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log('Account deleted successfully', response.data);
       logout();
-      navigate('/'); 
+      navigate("/");
     } catch (error) {
-      console.error('Error deleting account', error.response ? error.response.data : error.message);
-      setError(error.response ? error.response.data.error : 'Error deleting account');
+      console.error(
+        "Error deleting account",
+        error.response ? error.response.data : error.message
+      );
+      setError(
+        error.response ? error.response.data.error : "Error deleting account"
+      );
     }
   };
-  // const profilePictureUrl = user.picture ? `http://localhost:7500/uploads/${user.picture}` : defaultProfileImage;
+
+  const profilePictureUrl = user.picture && user.picture !== 'default.jpg'
+    ? `http://localhost:7500/${user.picture}`
+    : defaultProfileImage;
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h2>Welcome, <span className="user-firstname">{user.firstName}</span>!</h2>
+        <h2>
+          Welcome, <span className="user-firstname">{user.firstName}</span>!
+        </h2>
         <div className="dropdown">
-          <button className="dropdown-button" onClick={() => setMenuOpen(!menuOpen)}>
+          <button
+            className="dropdown-button"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             {user.email} ({user.role})
-            <img src={user.picture ? `http://localhost:7500/${user.picture}` : profileImage} alt="Profile" className="profile-icon" />
+            <img src={profilePictureUrl} alt="Profile" className="profile-icon" />
           </button>
           {menuOpen && (
             <div className="dropdown-menu">
-              <button onClick={() => handleMenuClick('/my-bookings')}>Book Program</button>
-              <button onClick={() => handleMenuClick('/update-profile')}>Update Personal Info</button>
-              <button onClick={() => handleMenuClick('/write-review')}>Write a review</button>
+              <button onClick={() => handleMenuClick("/my-bookings")}>
+                My Bookings
+              </button>
+              <button onClick={() => handleMenuClick("/update-profile-pic")}>
+                Update Profile Pic
+              </button>
+              <button onClick={() => handleMenuClick("/update-profile")}>
+                Update Profile
+              </button>
+              <button onClick={() => handleMenuClick("/write-review")}>
+                Write a Review
+              </button>
               <button onClick={handleDeleteAccount}>Delete Account</button>
               <hr />
               <button onClick={logout}>Log out</button>
@@ -104,7 +126,7 @@ const MemberDashboard = () => {
       </div>
       <div className="programs">
         <h3>Programs</h3>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <ul>
           {dashboardData.enrolledPrograms.length > 0 ? (
             dashboardData.enrolledPrograms.map((program, index) => (
@@ -121,7 +143,7 @@ const MemberDashboard = () => {
       </div>
       <div className="bookings">
         <h3>My Bookings</h3>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <ul>
           {bookings.length > 0 ? (
             bookings.map((booking) => (
