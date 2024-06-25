@@ -21,10 +21,9 @@ import Login from "./components/JoinUs/Login/Login";
 import AdminDashboard from "./components/RoleBasedDashboard/AdminDashboard";
 import TrainerDashboard from "./components/RoleBasedDashboard/TrainerDashboard";
 import MemberDashboard from "./components/RoleBasedDashboard/MemberDashboard";
-import WriteReview from "./components/Review/WriteReview.jsx";
 import UpdateProfilePic from "./components/UpdateProfilePic/UpdateProfilePic.jsx";
 import MyBookings from "./components/MyBookings/MyBookings.jsx";
-import UpdateProfile from "./components/UpdateProfile/UpdateProfile.jsx";
+
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
