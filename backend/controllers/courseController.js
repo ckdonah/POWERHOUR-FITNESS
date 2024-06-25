@@ -44,6 +44,23 @@ const getAllCourses = async (req, res) => {
   }
 };
 
+const getCourseById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    res.json(course);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error fetching course", details: error.message });
+  }
+}
+
 const updateCourseById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -102,4 +119,4 @@ const deleteCourseById = async (req, res) => {
   }
 };
 
-export { postNewCourse, getAllCourses, updateCourseById, deleteCourseById };
+export { postNewCourse, getAllCourses, updateCourseById, deleteCourseById, getCourseById };

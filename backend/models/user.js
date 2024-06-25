@@ -16,7 +16,7 @@ const userSchema = new Schema(
     },
     picture: { type: String },
     address: { type: String },
-    trainerType: { type: String, enum: ["yoga", "pilates", "Cardio"] },
+    trainerType: { type: String, enum: ["yoga", "pilates", "cardio"] },
     trainerDescription: { type: String },
     deleted: { type: Boolean, default: false }, 
   },

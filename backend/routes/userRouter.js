@@ -53,7 +53,7 @@ router.patch("/:id", upload.single("picture"), uploadPictureById);
 router.get("/", getAllUsers);
 router.get("/:id", getUserById);
 router.get("/picture/:id", getPictureById);
-router.put("/profile", isAuth, updateUserProfile);
+router.put("/profile/", isAuth, updateUserProfile);
 router.post("/upload", isAuth, upload.single('file'), uploadProfilePicture);
 
 router.delete("/:id", deleteUserById);

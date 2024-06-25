@@ -13,10 +13,9 @@ const __dirname = path.dirname(__filename);
 
 const { JWT_SECRET, PORT, RESEND_API_KEY } = process.env;
 
-
 const signup = asyncHandler(async (req, res) => {
   try {
-    const { firstName, lastName, email, password, role } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
@@ -33,7 +32,6 @@ const signup = asyncHandler(async (req, res) => {
     const newUser = await User.create({
       firstName,
       lastName,
-      role,
       email,
       password: hashedPassword,
       picture: "default.jpg",
@@ -42,8 +40,9 @@ const signup = asyncHandler(async (req, res) => {
 
     await newUser.save();
 
-  res.status(201).json({ message: "Signup successful. Please check your email for verification." });
-
+    res.status(201).json({
+      message: "Signup successful. Please check your email for verification.",
+    });
 
     // Create a verification token
     const token = crypto.randomUUID();
@@ -63,7 +62,7 @@ const signup = asyncHandler(async (req, res) => {
       <a href="http://localhost:${PORT}/user/verify/${token}">http://localhost:${PORT}/user/verify/${token}</a>
       </p>`,
     });
-   
+
     // Send the response
     res.status(200).json({
       message: "Signup successful. Please check your email for verification.",
@@ -100,12 +99,6 @@ const verifyToken = asyncHandler(async (req, res) => {
   }
 });
 
-
-
-
-
-
-
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -137,7 +130,7 @@ const login = asyncHandler(async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    console.log('Generated Access Token:', accessToken);
+    console.log("Generated Access Token:", accessToken);
 
     res.cookie("token", accessToken, {
       httpOnly: true,
@@ -160,19 +153,15 @@ const login = asyncHandler(async (req, res) => {
         dashboardUrl = "/login";
     }
 
-    res.status(200).json({ message: "Login successful.", accessToken, user, dashboardUrl });
-
+    res
+      .status(200)
+      .json({ message: "Login successful.", accessToken, user, dashboardUrl });
   } else {
-    res.status(401).json({ message: "Login failed due to invalid credentials" });
+    res
+      .status(401)
+      .json({ message: "Login failed due to invalid credentials" });
   }
 });
-
-
-
-
-
-
-
 
 const getProtected = asyncHandler(async (req, res) => {
   const { userId } = req.user;
@@ -188,13 +177,14 @@ const logout = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 });
 
-
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching users", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error fetching users", details: error.message });
   }
 };
 
@@ -207,7 +197,9 @@ const getUserById = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching user", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error fetching user", details: error.message });
   }
 };
 
@@ -220,9 +212,13 @@ const uploadPictureById = asyncHandler(async (req, res) => {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(id, {
-      picture: filePath,
-    }, { new: true });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        picture: filePath,
+      },
+      { new: true }
+    );
 
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
@@ -230,11 +226,29 @@ const uploadPictureById = asyncHandler(async (req, res) => {
 
     res.json({ filePath });
   } catch (error) {
-    res.status(500).json({ error: "Error updating profile picture", details: error.message });
+    res.status(500).json({
+      error: "Error updating profile picture",
+      details: error.message,
+    });
   }
 });
 
 
+// Handle file upload
+const uploadProfilePicture = asyncHandler(async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const filePath = req.file.path;
+    res.status(200).json({ filePath });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error uploading file", details: error.message });
+  }
+});
 
 const updateUserProfile = asyncHandler(async (req, res) => {
   try {
@@ -247,7 +261,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       password,
       telephone,
       address,
-      picture
+      trainerType,
+      trainerDescription,
     } = req.body;
 
     let hashedPassword;
@@ -265,7 +280,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         password: hashedPassword || undefined,
         telephone,
         address,
-        picture
+        trainerType,
+        trainerDescription,
       },
       { new: true, runValidators: true }
     );
@@ -276,24 +292,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     res.json(updatedUser);
   } catch (error) {
-    res.status(500).json({ error: "Error updating user", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error updating user", details: error.message });
   }
 });
-
-// Handle file upload
-const uploadProfilePicture = asyncHandler(async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
-    }
-
-    const filePath = req.file.path;
-    res.status(200).json({ filePath });
-  } catch (error) {
-    res.status(500).json({ error: "Error uploading file", details: error.message });
-  }
-});
-
 
 
 
@@ -326,21 +329,19 @@ const deleteUserById = async (req, res) => {
     user.deleted = true;
     await user.save();
 
-    res.json({ message: 'User marked as deleted', user });
+    res.json({ message: "User marked as deleted", user });
   } catch (error) {
-    res.status(500).json({ error: "Error deleting user", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error deleting user", details: error.message });
   }
 };
-
-
-
-
 
 // Example of admin dashboard data endpoint
 const getAdminDashboardData = asyncHandler(async (req, res) => {
   // Fetch relevant data for admin dashboard
-  const membersCount = await User.countDocuments({ role: 'member' });
-  const trainersCount = await User.countDocuments({ role: 'trainer' });
+  const membersCount = await User.countDocuments({ role: "member" });
+  const trainersCount = await User.countDocuments({ role: "trainer" });
   const classesCount = 50; // Example data, replace with actual data fetching
 
   res.status(200).json({
