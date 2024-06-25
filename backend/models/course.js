@@ -4,9 +4,8 @@ const courseSchema = new Schema({
   name: { type: String, required: true },
   picture: { type: String },
   description: { type: String, required: true },
-  trainerName: { type: String, required: true },
+  trainerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   capacity: { type: Number, required: true },
-  activities: { type: String, enum: ["yoga", "pilates", "Cardio"], required: true },
   date: { type: String, required: true },
   duration: { type: String, required: true } 
 }, { timestamps: true });

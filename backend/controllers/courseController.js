@@ -3,23 +3,21 @@ import Course from "../models/course.js";
 const postNewCourse = async (req, res) => {
   try {
     const {
+      trainerId,
       name,
       picture,
       description,
-      trainerName,
       capacity,
-      activities,
       date,
       duration,
     } = req.body;
 
     const newCourse = new Course({
+      trainerId,
       name,
       picture,
       description,
-      trainerName,
       capacity,
-      activities,
       date,
       duration,
     });
@@ -35,7 +33,11 @@ const postNewCourse = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find();
+    const courses = await Course.find().populate({
+      path: "trainerId",
+      select: ["firstName", "lastName", "picture","trainerType"],});
+
+      console.log("courses",courses)
     res.json(courses);
   } catch (error) {
     res
@@ -47,7 +49,9 @@ const getAllCourses = async (req, res) => {
 const getCourseById = async (req, res) => {
   try {
     const { id } = req.params;
-    const course = await Course.findById(id);
+    const course = await Course.findById(id).populate({
+      path: "trainerId",
+      select: ["firstName", "lastName", "picture","trainerType"],});
 
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
@@ -68,9 +72,7 @@ const updateCourseById = async (req, res) => {
       name,
       picture,
       description,
-      trainerName,
       capacity,
-      activities,
       date,
       duration,
     } = req.body;
@@ -81,9 +83,7 @@ const updateCourseById = async (req, res) => {
         name,
         picture,
         description,
-        trainerName,
         capacity,
-        activities,
         date,
         duration,
       },
