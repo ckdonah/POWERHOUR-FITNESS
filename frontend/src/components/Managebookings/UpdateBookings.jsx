@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useNavigate, useParams } from 'react-router-dom';
-import './UpdateBooking.css';
+// import './UpdateBooking.css';
 
 const UpdateBooking = () => {
   const { id } = useParams();

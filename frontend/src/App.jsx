@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -31,6 +26,7 @@ import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import WriteReview from "./components/Review/WriteReview";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
+
 function App() {
   return (
     <SnackbarProvider maxSnack={3}>
@@ -126,36 +122,19 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/update-booking/:id"
+              element={
+                <ProtectedRoute role="member">
+                  <UpdateBooking />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/programs">
               <Route
                 path=":program/:course/:trainer/:id/*"
                 element={<Course />}
               />
-              <Route
-                path="/manage-bookings"
-                element={
-                  <ProtectedRoute role="member">
-                    <ManageBookings />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/book-program"
-                element={
-                  <ProtectedRoute role="member">
-                    <BookProgram />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/update-booking/:id"
-                element={
-                  <ProtectedRoute role="member">
-                    <UpdateBooking />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/programs"></Route>
               <Route path=":program/*" element={<Program />} />
               <Route path="" element={<Programs />} />
             </Route>
@@ -166,4 +145,5 @@ function App() {
     </SnackbarProvider>
   );
 }
+
 export default App;
