@@ -21,7 +21,9 @@ const AuthProvider = ({ children }) => {
           });
           setUser(response.data.data);
         } catch (error) {
-          console.error('Error fetching user data', error);
+          console.error(`Error fetching user data:
+          message: ${error.message}
+          token:   ${token}`);
         }
       }
       setLoading(false);
