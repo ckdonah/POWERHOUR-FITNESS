@@ -39,7 +39,7 @@ const getAllCourses = async (req, res) => {
       path: "trainerId",
       select: ["firstName", "lastName", "picture"],});
 
-      console.log("courses",courses)
+      // console.log("courses",courses)
     res.json(courses);
   } catch (error) {
     res

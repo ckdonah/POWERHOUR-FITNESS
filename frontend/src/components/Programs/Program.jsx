@@ -36,11 +36,27 @@ function Program() {
 
   const { program } = useParams();
   const image = images[`${program}Image`];
+  const data = courses
+    .filter((cours) => cours.type === "yoga")
+    .reduce(sparate, {});
+  console.log("data", data);
 
-  const sessionDivs = courses
+  function sparate(acc, cours) {
+    const id = cours.trainerId._id;
+    let array = acc[id];
+    if (!array) {
+      array = [];
+      acc[id] = array;
+    }
+    array.push(cours);
+    return acc;
+  }
+  const sessionDivs = (Object.values(data)[1]||[])
+
     .filter((trainerClasses) => trainerClasses.type === program)
     .map((trainerClasses) => {
       const {
+        _id,
         name,
         picture,
         description,
@@ -49,9 +65,8 @@ function Program() {
         type,
         trainerId: { firstName, lastName },
       } = trainerClasses;
-
       return (
-        <div key={firstName} className="trainer-info">
+        <div key={_id} className="trainer-info">
           <h4>
             Trainer Name: {firstName} {lastName} {type}
           </h4>
