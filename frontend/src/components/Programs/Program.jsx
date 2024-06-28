@@ -126,11 +126,11 @@ function Program() {
           style={{ border: "3px dashed blue" }}
         >
           <h3>Course name: {name}</h3>
-          <p>Course Description: {description}</p>
+          {/* <p>Course Description: {description}</p> */}
           <p>date: {date}</p>
           <p>duration: {duration} minutes</p>
           <img
-            src={picture}
+            src={`http://localhost:7500/uploads/${picture}`}
             alt={`src for "${name}" image is incorrect:
         ${picture}`}
             style={{ color: "red" }}
