@@ -39,9 +39,7 @@ function Program() {
 
   // console.log("ALL COURSES:", JSON.stringify(courses, null, "  "));
 
-  const programCourses = courses.filter(
-    course => course.type === program
-  )
+  const programCourses = courses.filter((course) => course.type === program);
 
   // programCourses is now an array of objects which
   // all have the `type` === `program`. We want to
@@ -58,22 +56,22 @@ function Program() {
   //   ],
   //   ...
   // ]
-  const byTrainer = separate(programCourses)
+  const byTrainer = separate(programCourses);
 
   function separate(courses) {
-    const object = courses.reduce(( acc, course) => {
-      const trainerId = course.trainerId._id
-      let array = acc[trainerId]
+    const object = courses.reduce((acc, course) => {
+      const trainerId = course.trainerId._id;
+      let array = acc[trainerId];
       if (!array) {
-        array = []
-        acc[trainerId] = array
+        array = [];
+        acc[trainerId] = array;
       }
-      array.push(course)
-      return acc
-    }, {})
+      array.push(course);
+      return acc;
+    }, {});
 
     // object = { <1's id>: [<1'scourse>, ...], ...}
-    return Object.values(object)
+    return Object.values(object);
     // [[ <1's course>, ... ], [ <2's course >, ... ]]
   }
 
@@ -81,74 +79,63 @@ function Program() {
   // * Information about the trainer
   // * A div with information about each course run
   //   by that trainer
-  const byTrainerDivs = byTrainer.map(getDivs)
-
-
+  const byTrainerDivs = byTrainer.map(getDivs);
 
   function getDivs(courses) {
     // Get information about the trainer from the first course.
     // (Each course object contains all this information, but
     // we only need to read it once.)
-    const course0  = courses[0]
-    const { trainerId, type } = course0
+    const course0 = courses[0];
+    const { trainerId, type } = course0;
     // {
     //   _id: "667966b8b875b1969644e69d",
     //   firstName: <string>,
     //   lastName: <string>,
     //   picture: <name>.jpg",
     // }
-    const {
-      _id,
-      firstName,
-      lastName,
-      picture
-    } = trainerId
+    const { _id, firstName, lastName, picture } = trainerId;
 
-    const trainerName = `${firstName} ${lastName}`
+    const trainerName = `${firstName} ${lastName}`;
 
     // For each course, create a div which contains information
     // about that specific course (ignoring the information
     // about the trainer.)
-    const courseDivs = courses.map( course => {
-      const {
-        _id,
-        name,
-        picture,
-        description,
-        date,
-        duration
-      } = course;
+    const courseDivs = courses.map((course) => {
+      const { _id, name, picture, description, date, duration } = course;
 
       return (
         <div
           key={_id}
           className="trainer-info"
-          style={{border: "3px dashed blue"}}
+          style={{ border: "3px dashed blue" }}
         >
           <h3>Course name: {name}</h3>
           <p>Course Description: {description}</p>
           <p>date: {date}</p>
           <p>duration: {duration} minutes</p>
-          <img src={picture} alt={`src for "${name}" image is incorrect:
-        ${picture}`} style={{color: "red"}}/>
+          <img
+            src={picture}
+            alt={`src for "${name}" image is incorrect:
+        ${picture}`}
+            style={{ color: "red" }}
+          />
         </div>
       );
     });
 
     // Return a div for each trainer and their courses
     return (
-      <div
-        key={_id}
-        style={{border: "3px inset limegreen"}}
-      >
-        <h4>
-          Trainer Name: {trainerName} ({type})
-        </h4>
-        <img src={picture} alt={`src for "${trainerName}" image is incorrect:
-        ${picture}`} style={{color: "red"}}/>
+      <div key={_id} style={{ border: "3px inset limegreen" }}>
+        <h4>Trainer Name: {trainerName}</h4>
+        <img
+          src={`http://localhost:7500/uploads/${picture}`}
+          alt={`src for "${trainerName}" image is incorrect:
+        ${picture}`}
+          style={{ color: "red" }}
+        />
         {courseDivs}
       </div>
-    )
+    );
   }
 
   return (
