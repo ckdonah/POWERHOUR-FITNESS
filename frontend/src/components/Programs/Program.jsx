@@ -36,6 +36,22 @@ function Program() {
 
   const { program } = useParams();
   const image = images[`${program}Image`];
+  const data = courses
+    .filter((cours) => cours.type === "yoga")
+    .reduce(sparate, {});
+  console.log("data", data);
+
+  function sparate(acc, cours) {
+    const id = cours.trainerId._id;
+    let array = acc[id];
+    if (!array) {
+      array = [];
+      acc[id] = array;
+    }
+    array.push(cours);
+    return acc;
+  }
+  const sessionDivs = (Object.values(data)[1]||[])
 
   // console.log("ALL COURSES:", JSON.stringify(courses, null, "  "));
 

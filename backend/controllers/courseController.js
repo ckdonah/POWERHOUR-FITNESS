@@ -1,11 +1,12 @@
 import Course from "../models/course.js";
+import asyncHandler from "../config/asyncHandler.js";
+
 
 const postNewCourse = async (req, res) => {
   try {
     const {
       trainerId,
       name,
-      picture,
       description,
       capacity,
       date,
@@ -16,7 +17,6 @@ const postNewCourse = async (req, res) => {
     const newCourse = new Course({
       trainerId,
       name,
-      picture,
       description,
       capacity,
       date,
@@ -37,9 +37,10 @@ const getAllCourses = async (req, res) => {
   try {
     const courses = await Course.find().populate({
       path: "trainerId",
-      select: ["firstName", "lastName", "picture"],});
+      select: ["firstName", "lastName", "picture"],
+    });
 
-      console.log("courses",courses)
+    // console.log("courses",courses)
     res.json(courses);
   } catch (error) {
     res
@@ -53,7 +54,8 @@ const getCourseById = async (req, res) => {
     const { id } = req.params;
     const course = await Course.findById(id).populate({
       path: "trainerId",
-      select: ["firstName", "lastName", "picture"],});
+      select: ["firstName", "lastName", "picture"],
+    });
 
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
@@ -65,26 +67,18 @@ const getCourseById = async (req, res) => {
       .status(500)
       .json({ error: "Error fetching course", details: error.message });
   }
-}
+};
 
 const updateCourseById = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      name,
-      picture,
-      description,
-      capacity,
-      date,
-      duration,
-      type,
-    } = req.body;
+    const { name, picture, description, capacity, date, duration, type } =
+      req.body;
 
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
       {
         name,
-        picture,
         description,
         capacity,
         date,
@@ -105,6 +99,35 @@ const updateCourseById = async (req, res) => {
       .json({ error: "Error updating course", details: error.message });
   }
 };
+const upLoadCoursePic = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const filePath = req.file ? req.file.filename : null;
+
+    if (!filePath) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const updatedUser = await Course.findByIdAndUpdate(
+      id,
+      {
+        picture: filePath,
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    res.json({ filePath });
+  } catch (error) {
+    res.status(500).json({
+      error: "Error updating course picture",
+      details: error.message,
+    });
+  }
+});
 
 const deleteCourseById = async (req, res) => {
   try {
@@ -123,4 +146,11 @@ const deleteCourseById = async (req, res) => {
   }
 };
 
-export { postNewCourse, getAllCourses, updateCourseById, deleteCourseById, getCourseById };
+export {
+  postNewCourse,
+  getAllCourses,
+  updateCourseById,
+  deleteCourseById,
+  getCourseById,
+  upLoadCoursePic
+};
