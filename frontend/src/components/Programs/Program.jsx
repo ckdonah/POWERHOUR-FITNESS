@@ -51,7 +51,7 @@ function Program() {
     array.push(cours);
     return acc;
   }
-  const sessionDivs = (Object.values(data)[1]||[])
+  const sessionDivs = Object.values(data)[1] || [];
 
   // console.log("ALL COURSES:", JSON.stringify(courses, null, "  "));
 
@@ -120,36 +120,41 @@ function Program() {
       const { _id, name, picture, description, date, duration } = course;
 
       return (
-        <div
-          key={_id}
-          className="trainer-info"
-          style={{ border: "3px dashed blue" }}
-        >
+        <div key={_id} className="course-card">
           <h3>Course name: {name}</h3>
           {/* <p>Course Description: {description}</p> */}
-          <p>date: {date}</p>
-          <p>duration: {duration} minutes</p>
           <img
             src={`http://localhost:7500/uploads/${picture}`}
             alt={`src for "${name}" image is incorrect:
         ${picture}`}
-            style={{ color: "red" }}
           />
+          <p>date: {date}</p>
+          <p>duration: {duration} minutes</p>
         </div>
       );
     });
 
     // Return a div for each trainer and their courses
     return (
-      <div key={_id} style={{ border: "3px inset limegreen" }}>
-        <h4>Trainer Name: {trainerName}</h4>
-        <img
-          src={`http://localhost:7500/uploads/${picture}`}
-          alt={`src for "${trainerName}" image is incorrect:
-        ${picture}`}
-          style={{ color: "red" }}
-        />
-        {courseDivs}
+      <div key={_id} className="trainer-info">
+        <div className="trainer-info-header">
+          <div className="trainer-name-img">
+          <img
+            src={`http://localhost:7500/uploads/${picture}`}
+            alt={`src for "${trainerName}" image is incorrect:
+            ${picture}`}
+          />
+          <h3>Trainer Name: {trainerName}</h3>
+          </div>
+          <div className="back-programs">
+          <Link to={`/programs`}>
+            <span >Back to Programs</span>
+          </Link>
+          </div>
+        </div>
+        <Link to={`/programs/courses/singlepage/${type}`}>
+          <div className="course-text">{courseDivs}</div>
+        </Link>
       </div>
     );
   }
