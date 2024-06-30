@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 const courseSchema = new Schema(
   {
     name: { type: String, required: true },
-    picture: { type: String },
+    coursePic: { type: String },
     description: { type: String, required: true },
     type: { type: String, required: true, enum: ["yoga", "pilates", "cardio"] },
     trainerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
