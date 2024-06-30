@@ -121,7 +121,7 @@ function Program() {
 
       return (
         <div key={_id} className="course-card">
-          <h3>Course name: {name}</h3>
+          <h3> {name}</h3>
           {/* <p>Course Description: {description}</p> */}
           <img
             src={`http://localhost:7500/uploads/${picture}`}
@@ -130,6 +130,7 @@ function Program() {
           />
           <p>date: {date}</p>
           <p>duration: {duration} minutes</p>
+          <p>Capacity: {course.capacity}</p>
         </div>
       );
     });
