@@ -3,19 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import "./program.css";
 import { treatDate } from "./treatDate";
 import axios from "axios";
-import yogaImage from "../../assets/yoga_june.jpeg";
-import cardioImage from "../../assets/cardio_year.webp";
-import pilatesImage from "../../assets/pilates_year.jpeg";
 import Logo from "../../assets/logo.png";
-
-const images = {
-  yogaImage,
-  cardioImage,
-  pilatesImage,
-};
 
 function Program() {
   const [courses, setCourses] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState({});
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -30,7 +23,6 @@ function Program() {
   }, []);
 
   const { program } = useParams();
-  const image = images[`${program}Image`];
   const data = courses
     .filter((cours) => cours.type === "yoga")
     .reduce(sparate, {});
@@ -73,7 +65,13 @@ function Program() {
     const { _id, firstName, lastName, picture } = trainerId;
     const trainerName = `${firstName} ${lastName}`;
 
-    const courseDivs = courses.map((course) => {
+    // Initialize currentIndex for each trainer
+    if (!(trainerId in currentIndex)) {
+      setCurrentIndex((prev) => ({ ...prev, [trainerId]: 0 }));
+    }
+
+    const currentTrainerIndex = currentIndex[trainerId] || 0;
+    const courseDivs = courses.slice(currentTrainerIndex, currentTrainerIndex + 4).map((course) => {
       const { _id, name, coursePic, date, duration, capacity } = course;
 
       return (
@@ -92,6 +90,20 @@ function Program() {
       );
     });
 
+    const handleNext = () => {
+      setCurrentIndex((prev) => ({
+        ...prev,
+        [trainerId]: (prev[trainerId] + 4) % courses.length,
+      }));
+    };
+
+    const handlePrev = () => {
+      setCurrentIndex((prev) => ({
+        ...prev,
+        [trainerId]: (prev[trainerId] - 4 + courses.length) % courses.length,
+      }));
+    };
+
     return (
       <div key={_id} className="trainer-info">
         <div className="trainer-info-header">
@@ -100,15 +112,16 @@ function Program() {
               src={`http://localhost:7500/uploads/${picture}`}
               alt={`src for "${trainerName}" image is incorrect: ${picture}`}
             />
-            <h3>Trainer Name: {trainerName}</h3>
-          </div>
-          <div className="back-programs">
-            <Link to={`/programs`}>
-              <span>Back to Programs</span>
-            </Link>
+            <h3>{trainerName}</h3>
           </div>
         </div>
+        <button className="arrow left" onClick={handlePrev}>
+          &lt;
+        </button>
         <div className="course-text">{courseDivs}</div>
+        <button className="arrow right" onClick={handleNext}>
+          &gt;
+        </button>
       </div>
     );
   }
@@ -131,4 +144,3 @@ function Program() {
 }
 
 export default Program;
-
