@@ -72,7 +72,7 @@ const getCourseById = async (req, res) => {
 const updateCourseById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, picture, description, capacity, date, duration, type } =
+    const { name, description, capacity, date, duration, type } =
       req.body;
 
     const updatedCourse = await Course.findByIdAndUpdate(
@@ -111,7 +111,7 @@ const upLoadCoursePic = asyncHandler(async (req, res) => {
     const updatedUser = await Course.findByIdAndUpdate(
       id,
       {
-        picture: filePath,
+        coursePic: filePath,
       },
       { new: true }
     );

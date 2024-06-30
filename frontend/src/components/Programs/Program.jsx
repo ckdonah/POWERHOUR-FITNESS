@@ -74,14 +74,14 @@ function Program() {
     const trainerName = `${firstName} ${lastName}`;
 
     const courseDivs = courses.map((course) => {
-      const { _id, name, picture, description, date, duration, capacity } = course;
+      const { _id, name, coursePic, date, duration, capacity } = course;
 
       return (
-        <Link key={_id} to={`/programs/${type}/courses/${trainerId.shortName}/${_id}`}>
+        <Link key={_id} to={`/programs/${type}/courses/${trainerId}/${_id}`}>
           <div className="course-card">
             <h3>Course: {name}</h3>
             <img
-              src={`http://localhost:7500/uploads/${picture}`}
+              src={`http://localhost:7500/uploads/${coursePic}`}
               alt={`src for "${name}" image is incorrect: ${picture}`}
             />
             <p>Date: {date}</p>

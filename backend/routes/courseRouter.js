@@ -32,7 +32,7 @@ router.get("/", getAllCourses);
 router.get("/:id", getCourseById);
 router.put("/:id", updateCourseById);
 
-router.patch("/:id", upload.single("picture"), upLoadCoursePic); // Handle file upload with multer middleware
+router.patch("/:id", upload.single("coursePic"), upLoadCoursePic); // Handle file upload with multer middleware
 router.delete("/:id", deleteCourseById);
 
 export default router;
