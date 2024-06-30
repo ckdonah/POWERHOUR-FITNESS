@@ -117,20 +117,20 @@ function Program() {
     // about that specific course (ignoring the information
     // about the trainer.)
     const courseDivs = courses.map((course) => {
-      const { _id, name, picture, description, date, duration } = course;
+      const { _id, name, picture, description, date, duration, capacity } = course;
 
       return (
         <div key={_id} className="course-card">
-          <h3> {name}</h3>
+          <h3>Course: {name}</h3>
           {/* <p>Course Description: {description}</p> */}
           <img
             src={`http://localhost:7500/uploads/${picture}`}
             alt={`src for "${name}" image is incorrect:
         ${picture}`}
           />
-          <p>date: {date}</p>
-          <p>duration: {duration} minutes</p>
-          <p>Capacity: {course.capacity}</p>
+          <p>Date: {date}</p>
+          <p>Duration: {duration} Minutes</p>
+          <p>Capacity:{capacity}</p>
         </div>
       );
     });
