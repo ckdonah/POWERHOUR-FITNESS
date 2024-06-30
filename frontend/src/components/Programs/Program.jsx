@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./program.css";
 import { treatDate } from "./treatDate";
@@ -14,18 +14,13 @@ const images = {
   pilatesImage,
 };
 
-// import courses from "./courses.json";
-import { useEffect, useState } from "react";
-
 function Program() {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get("http://localhost:7500/course");
-        // console.log(response);
         const { data } = response;
-        // console.log(data);
         setCourses(data);
       } catch (error) {
         console.log(error);
@@ -53,25 +48,7 @@ function Program() {
   }
   const sessionDivs = Object.values(data)[1] || [];
 
-  // console.log("ALL COURSES:", JSON.stringify(courses, null, "  "));
-
   const programCourses = courses.filter((course) => course.type === program);
-
-  // programCourses is now an array of objects which
-  // all have the `type` === `program`. We want to
-  // divide this into separate arrays, one for each
-  // trainer.
-  // byTrainer = [
-  //   [ <course 1 with trainer 1>,
-  //     <course 2 with trainer 1>,
-  //     ...
-  //   ],
-  //   [ <course A with trainer 2>,
-  //     <course B with trainer 2>,
-  //     ...
-  //   ],
-  //   ...
-  // ]
   const byTrainer = separate(programCourses);
 
   function separate(courses) {
@@ -85,86 +62,59 @@ function Program() {
       array.push(course);
       return acc;
     }, {});
-
-    // object = { <1's id>: [<1'scourse>, ...], ...}
     return Object.values(object);
-    // [[ <1's course>, ... ], [ <2's course >, ... ]]
   }
 
-  // We want to create a div for each trainer with:
-  // * Information about the trainer
-  // * A div with information about each course run
-  //   by that trainer
   const byTrainerDivs = byTrainer.map(getDivs);
 
   function getDivs(courses) {
-    // Get information about the trainer from the first course.
-    // (Each course object contains all this information, but
-    // we only need to read it once.)
     const course0 = courses[0];
     const { trainerId, type } = course0;
-    // {
-    //   _id: "667966b8b875b1969644e69d",
-    //   firstName: <string>,
-    //   lastName: <string>,
-    //   picture: <name>.jpg",
-    // }
     const { _id, firstName, lastName, picture } = trainerId;
-
     const trainerName = `${firstName} ${lastName}`;
 
-    // For each course, create a div which contains information
-    // about that specific course (ignoring the information
-    // about the trainer.)
     const courseDivs = courses.map((course) => {
       const { _id, name, picture, description, date, duration, capacity } = course;
 
       return (
-        <div key={_id} className="course-card">
-          <h3>Course: {name}</h3>
-          {/* <p>Course Description: {description}</p> */}
-          <img
-            src={`http://localhost:7500/uploads/${picture}`}
-            alt={`src for "${name}" image is incorrect:
-        ${picture}`}
-          />
-          <p>Date: {date}</p>
-          <p>Duration: {duration} Minutes</p>
-          <p>Capacity:{capacity}</p>
-        </div>
+        <Link key={_id} to={`/programs/${type}/courses/${trainerId.shortName}/${_id}`}>
+          <div className="course-card">
+            <h3>Course: {name}</h3>
+            <img
+              src={`http://localhost:7500/uploads/${picture}`}
+              alt={`src for "${name}" image is incorrect: ${picture}`}
+            />
+            <p>Date: {date}</p>
+            <p>Duration: {duration} Minutes</p>
+            <p>Capacity:{capacity}</p>
+          </div>
+        </Link>
       );
     });
 
-    // Return a div for each trainer and their courses
     return (
       <div key={_id} className="trainer-info">
         <div className="trainer-info-header">
           <div className="trainer-name-img">
-          <img
-            src={`http://localhost:7500/uploads/${picture}`}
-            alt={`src for "${trainerName}" image is incorrect:
-            ${picture}`}
-          />
-          <h3>Trainer Name: {trainerName}</h3>
+            <img
+              src={`http://localhost:7500/uploads/${picture}`}
+              alt={`src for "${trainerName}" image is incorrect: ${picture}`}
+            />
+            <h3>Trainer Name: {trainerName}</h3>
           </div>
           <div className="back-programs">
-          <Link to={`/programs`}>
-            <span >Back to Programs</span>
-          </Link>
+            <Link to={`/programs`}>
+              <span>Back to Programs</span>
+            </Link>
           </div>
         </div>
-        <Link to={`/programs/courses/singlepage/${type}`}>
-          <div className="course-text">{courseDivs}</div>
-        </Link>
+        <div className="course-text">{courseDivs}</div>
       </div>
     );
   }
 
   return (
     <div>
-      {/*
-        Show a header for the page
-       */}
       <div className="header">
         <Link to="/" className="logo-link">
           <div className="logo-box">
@@ -173,10 +123,6 @@ function Program() {
           </div>
         </Link>
       </div>
-
-      {/*
-        Show the information about each trainer and their courses
-      */}
       <div className="program-container">
         <div>{byTrainerDivs}</div>
       </div>
@@ -185,3 +131,4 @@ function Program() {
 }
 
 export default Program;
+
