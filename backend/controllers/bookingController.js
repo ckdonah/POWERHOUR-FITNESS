@@ -1,31 +1,29 @@
 import Booking from "../models/booking.js";
+import Course from "../models/course.js";
 
-// Post a new booking
+// Function to create a new booking
 const postBooking = async (req, res) => {
+  console.log('Request body:', req.body);
   try {
-    const { courseId, userId, status } = req.body;
+    const { courseId, date, duration } = req.body;
+    const userId = req.user.userId;
 
-    if (!courseId || !userId || !status) {
-      return res.status(400).json({ error: "courseId, userId, and status are required fields." });
+    if (!courseId || !date || !duration) {
+      return res.status(400).json({ error: "courseId, date, and duration are required fields." });
     }
 
-    // Ensure status is capitalized correctly
-    const formattedStatus = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
-
-    // Create a new booking instance
     const newBooking = new Booking({
       courseId,
       userId,
-      status: formattedStatus,
+      date,
+      duration,
+      status: 'Pending'
     });
 
-    // Save the booking to the database
     const savedBooking = await newBooking.save();
-
-    // Respond with the saved booking
     res.status(201).json(savedBooking);
   } catch (error) {
-    // Handle errors and send an error response
+    console.error('Error creating booking:', error);
     res.status(500).json({
       error: "An error occurred while saving the booking.",
       details: error.message,
@@ -33,12 +31,14 @@ const postBooking = async (req, res) => {
   }
 };
 
-// Get all bookings
-const getAllBookings = async (req, res) => {
+// Function to get all bookings for a user
+const getBookingsByUser = async (req, res) => {
   try {
-    const bookings = await Booking.find();
+    const userId = req.user.userId;
+    const bookings = await Booking.find({ userId }).populate('courseId');
     res.json(bookings);
   } catch (error) {
+    console.error('Error fetching bookings:', error);
     res.status(500).json({
       error: "An error occurred while fetching the bookings.",
       details: error.message,
@@ -46,25 +46,39 @@ const getAllBookings = async (req, res) => {
   }
 };
 
-// Update a booking by ID
+// Function to get all bookings for a trainer's courses
+const getBookingsByTrainer = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const courses = await Course.find({ trainerId: userId }).select('_id');
+    const courseIds = courses.map(course => course._id);
+    
+    const bookings = await Booking.find({ courseId: { $in: courseIds } }).populate('courseId userId');
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    res.status(500).json({
+      error: "An error occurred while fetching the bookings.",
+      details: error.message,
+    });
+  }
+};
+
+// Function to cancel a booking by ID
 const cancelBookingById = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // Find the booking by ID
     const booking = await Booking.findById(id);
     if (!booking) {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    // Set the status to "Cancelled"
-    booking.status = "Cancelled";
+    booking.status = 'Cancelled';
+    const updatedBooking = await booking.save();
 
-    // Save the updated booking
-    const cancelledBooking = await booking.save();
-
-    res.json(cancelledBooking);
+    res.json(updatedBooking);
   } catch (error) {
+    console.error('Error cancelling booking:', error);
     res.status(500).json({
       error: "An error occurred while cancelling the booking.",
       details: error.message,
@@ -72,4 +86,26 @@ const cancelBookingById = async (req, res) => {
   }
 };
 
-export { postBooking, getAllBookings, cancelBookingById };
+// Function to approve a booking by ID
+const approveBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const booking = await Booking.findById(id);
+    if (!booking) {
+      return res.status(404).json({ error: "Booking not found" });
+    }
+
+    booking.status = 'Confirmed';
+    const updatedBooking = await booking.save();
+
+    res.json(updatedBooking);
+  } catch (error) {
+    console.error('Error approving booking:', error);
+    res.status(500).json({
+      error: "An error occurred while approving the booking.",
+      details: error.message,
+    });
+  }
+};
+
+export { postBooking, getBookingsByUser, getBookingsByTrainer, cancelBookingById, approveBooking };

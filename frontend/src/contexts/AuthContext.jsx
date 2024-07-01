@@ -32,6 +32,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (accessToken, user) => {
+    console.log("Logging in with token:", accessToken);
     localStorage.setItem('token', accessToken);
     setUser(user);
 
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log("Logging out");
     localStorage.removeItem('token');
     setUser(null);
     navigate('/login');
