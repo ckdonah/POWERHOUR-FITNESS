@@ -65,7 +65,7 @@ const BookProgram = () => {
 
   return (
     <div className="book-program-container">
-      <h2>Book a Program</h2>
+      <h2>Book a Course</h2>
       <div className="course-list">
         {courses.map((course) => (
           <div key={course._id} className="course-item" onClick={() => handleCourseClick(course)}>
