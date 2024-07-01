@@ -55,7 +55,7 @@ function Course() {
             <p>{description}</p>
           </div>
           <div className="booking-card">
-            <img src={`http://localhost:7500/uploads/${coursePic}`} alt="" />
+            <img src={`http://localhost:7500/uploads/${coursePic}`} alt={name} />
             <p>Date: {date}</p>
             <p>Duration: {duration} minutes</p>
             <p>Capacity: {capacity}</p>

@@ -1,82 +1,121 @@
+.back-link {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  padding: 10px;
+  display: inline-block;
+}
 
+.back-link:hover {
+  background-color: white;
+}
 
-  .back-link:hover {
-    background-color: white;
-  }
-  
+.singlepage-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.singlepage-container h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.trainer-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.trainer-profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+  background-color: #ddd; 
+}
+
+.trainer-profile p {
+  font-size: 18px;
+  color: #666;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.description h2 {
+  font-size: 24px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.description p {
+  font-size: 16px;
+  color: #666;
+}
+
+.booking-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  background: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.booking-card img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.booking-card p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.booking-card button {
+  background-color: #ff00ff;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.booking-card button:hover {
+  border: 2px solid white;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
   .singlepage-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
+    padding: 10px;
   }
-  
-  .singlepage-container h1 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
+
   .trainer-profile {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    text-align: center;
   }
-  
+
   .trainer-profile img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
-    background-color: #ddd; 
-  }
-  
-  .trainer-profile p {
-    font-size: 18px;
-    color: #666;
-  }
-  
-  .description {
-    margin-bottom: 20px;
-  }
-  
-  .description h2 {
-    font-size: 24px;
-    color: #444;
+    margin-right: 0;
     margin-bottom: 10px;
   }
-  
-  .description p {
-    font-size: 16px;
-    color: #666;
-  }
-  
+
   .booking-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    background: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
   }
-  
-  .booking-card p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #666;
-  }
-  
-  .booking-card button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
-  .booking-card button:hover {
-    background-color: #45a049;
-  }
-  
+}
