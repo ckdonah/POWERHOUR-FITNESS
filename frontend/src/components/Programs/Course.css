@@ -84,9 +84,9 @@
 }
 
 .booking-card button {
-  background-color: #4CAF50;
+  background-color: #ff00ff;
   color: white;
-  padding: 10px 20px;
+  padding: 8px 20px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -95,7 +95,7 @@
 }
 
 .booking-card button:hover {
-  background-color: #45a049;
+  border: 2px solid white;
 }
 
 /* Media Queries for Responsiveness */

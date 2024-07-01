@@ -19,7 +19,7 @@ function Footer() {
           <h3>PowerHour</h3>
           <p>PowerHour is a premier fitness program designed to maximize your potential every hour.</p>
           <div className="subscribe-section">
-            <h4>Get notified of upcoming drops</h4>
+            <h4>Get notified of upcoming Events</h4>
             <form onSubmit={handleClick}>
               <input type="email" placeholder="Enter email address" className="subscribe-input" required />
               <button type="submit" className="subscribe-button">Subscribe</button>
