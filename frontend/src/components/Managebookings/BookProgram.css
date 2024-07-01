@@ -1,0 +1,43 @@
+.book-program-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .book-program-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .book-program-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .book-program-container label {
+    margin-bottom: 10px;
+  }
+  
+  .book-program-container select,
+  .book-program-container input {
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .book-program-container button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .book-program-container button:hover {
+    background-color: #0056b3;
+  }
+  

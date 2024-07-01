@@ -130,16 +130,12 @@ const MemberDashboard = () => {
         <ul>
           {dashboardData.enrolledPrograms.length > 0 ? (
             dashboardData.enrolledPrograms.map((program, index) => (
-              <li key={index}>{program}</li>
+              <li key={index}>{program.name}</li> // Ensure you render program properties
             ))
           ) : (
             <p>No enrolled programs</p>
           )}
         </ul>
-        <div>
-          {/* <h3>Completed Classes</h3>
-          <p>{dashboardData.completedClasses}</p> */}
-        </div>
       </div>
       <div className="bookings">
         <h3>My Bookings</h3>
@@ -148,8 +144,8 @@ const MemberDashboard = () => {
           {bookings.length > 0 ? (
             bookings.map((booking) => (
               <li key={booking._id}>
-                {booking.courseId} - {booking.status}
-              </li>
+                {booking.courseId.name} - {booking.status}
+              </li> // Ensure you render booking properties
             ))
           ) : (
             <p>No bookings found</p>

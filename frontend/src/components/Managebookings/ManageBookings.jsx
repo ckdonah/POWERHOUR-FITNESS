@@ -8,7 +8,7 @@ const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
+console.log(bookings);
   useEffect(() => {
     const fetchBookings = async () => {
       try {
@@ -57,10 +57,10 @@ const ManageBookings = () => {
       {bookings.length > 0 ? (
         bookings.map((booking) => (
           <div key={booking._id} className="booking-card">
-            <p>{booking.courseId}</p>
+            <p>{booking.courseId.name}</p>
             <p>{booking.status}</p>
             <button onClick={() => handleUpdate(booking._id)}>Update</button>
-            <button onClick={() => handleDelete(booking._id)}>Delete</button>
+            <button onClick={() => handleDelete(booking._id)}>Cancel</button>
           </div>
         ))
       ) : (

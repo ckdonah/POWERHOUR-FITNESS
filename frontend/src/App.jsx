@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -20,6 +25,7 @@ import UpdateProfilePic from "./components/UpdateProfilePic/UpdateProfilePic.jsx
 import ManageBookings from "./components/Managebookings/ManageBookings.jsx";
 import BookProgram from "./components/Managebookings/BookProgram.jsx";
 import UpdateBooking from "./components/Managebookings/UpdateBookings.jsx";
+import ApproveBookings from "./components/Managebookings/ApproveBookings.jsx";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
@@ -127,6 +133,14 @@ function App() {
               element={
                 <ProtectedRoute role="member">
                   <UpdateBooking />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/approve-bookings"
+              element={
+                <ProtectedRoute role="trainer">
+                  <ApproveBookings />
                 </ProtectedRoute>
               }
             />
