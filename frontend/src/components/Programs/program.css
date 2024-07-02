@@ -94,7 +94,7 @@
   border-radius: 10px;
   width: 100%;
   max-width: 200px;
-  height: auto;
+  /* height: auto; */
   margin-bottom: 10px;
 }
 
