@@ -8,7 +8,8 @@ const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-console.log(bookings);
+  console.log(bookings);
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
@@ -35,31 +36,35 @@ console.log(bookings);
         },
       });
       setBookings(bookings.filter(booking => booking._id !== id));
-      enqueueSnackbar('Booking deleted successfully', { variant: 'success' });
+      enqueueSnackbar('Booking cancelled successfully', { variant: 'success' });
     } catch (error) {
-      console.error('Error deleting booking:', error);
-      enqueueSnackbar('Error deleting booking', { variant: 'error' });
+      console.error('Error cancelling booking:', error);
+      enqueueSnackbar('Error cancelling booking', { variant: 'error' });
     }
   };
 
-  const handleUpdate = (id) => {
-    navigate(`/update-booking/${id}`);
+  const handleBookCourse = () => {
+    navigate('/programs'); // Navigate to the programs page
   };
 
-  const handleBookProgram = () => {
-    navigate('/book-program');
+  const handleBackToDashboard = () => {
+    navigate('/dashboard/member'); // Navigate back to the member dashboard
   };
 
   return (
     <div className="manage-bookings">
+      <button onClick={handleBackToDashboard} className="back-button">
+        &lt; Back to Dashboard
+      </button>
       <h2>Manage Bookings</h2>
-      <button onClick={handleBookProgram} className="book-program-button">Book a Program</button>
+      <button onClick={handleBookCourse} className="book-course-button">
+        Book a Course
+      </button>
       {bookings.length > 0 ? (
         bookings.map((booking) => (
           <div key={booking._id} className="booking-card">
             <p>{booking.courseId.name}</p>
             <p>{booking.status}</p>
-            <button onClick={() => handleUpdate(booking._id)}>Update</button>
             <button onClick={() => handleDelete(booking._id)}>Cancel</button>
           </div>
         ))
