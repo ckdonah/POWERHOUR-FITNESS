@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../../components/RoleBasedDashboard/Dashboard.css";
 import defaultProfileImage from "../../assets/profile.jpg";
 
@@ -16,11 +16,14 @@ const TrainerDashboard = () => {
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await axios.get("http://localhost:7500/trainer/courses", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:7500/trainer/courses",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setPrograms(response.data);
       } catch (error) {
         console.error("Error fetching programs", error);
@@ -30,11 +33,14 @@ const TrainerDashboard = () => {
 
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("http://localhost:7500/booking/trainer", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:7500/booking/trainer",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setBookings(response.data);
       } catch (error) {
         console.error("Error fetching bookings", error);
@@ -79,14 +85,20 @@ const TrainerDashboard = () => {
 
   const handleApproveBooking = async (bookingId) => {
     try {
-      await axios.patch(`http://localhost:7500/booking/${bookingId}/approve`, {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.patch(
+        `http://localhost:7500/booking/${bookingId}/approve`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
-          booking._id === bookingId ? { ...booking, status: 'Confirmed' } : booking
+          booking._id === bookingId
+            ? { ...booking, status: "Confirmed" }
+            : booking
         )
       );
     } catch (error) {
@@ -94,13 +106,15 @@ const TrainerDashboard = () => {
       setError("Error approving booking");
     }
   };
-
-  const profilePictureUrl = user.picture
+ const profilePictureUrl = user.picture && user.picture !== 'default.jpg'
     ? `http://localhost:7500/uploads/${user.picture}`
     : defaultProfileImage;
 
   return (
     <div className="dashboard">
+      <Link to="/" className="back-to-homepage">
+        &lt;Home
+      </Link>
       <div className="dashboard-header">
         <h2>
           Welcome, <span className="user-firstname">{user.firstName}</span>!
@@ -111,15 +125,20 @@ const TrainerDashboard = () => {
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {user.email} ({user.role})
-            <img src={profilePictureUrl} alt="Profile" className="profile-icon" />
+            <img
+              src={profilePictureUrl}
+              alt="Profile"
+              className="profile-icon"
+            />
           </button>
           {menuOpen && (
             <div className="dropdown-menu">
-              <button onClick={() => handleMenuClick("/trainer/programs")}>
-                Manage Programs
-              </button>
+              {" "}
               <button onClick={() => handleMenuClick("/approve-bookings")}>
                 Approve Bookings
+              </button>
+              <button onClick={() => handleMenuClick("/trainer/programs")}>
+                Manage Courses
               </button>
               <button onClick={() => handleMenuClick("/update-profile-pic")}>
                 Update Profile Pic
@@ -135,7 +154,7 @@ const TrainerDashboard = () => {
         </div>
       </div>
       <div className="programs">
-        <h3>Programs</h3>
+        <h3>Courses</h3>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <ul>
           {programs.length > 0 ? (
@@ -153,10 +172,11 @@ const TrainerDashboard = () => {
         <ul>
           {bookings.length > 0 ? (
             bookings
-              .filter((booking) => booking.status === 'Pending')
+              .filter((booking) => booking.status === "Pending")
               .map((booking) => (
                 <li key={booking._id}>
-                  {booking.courseId.name} - {booking.userId.firstName} {booking.userId.lastName}
+                  {booking.courseId.name} - {booking.userId.firstName}{" "}
+                  {booking.userId.lastName}
                   <button onClick={() => handleApproveBooking(booking._id)}>
                     Approve
                   </button>

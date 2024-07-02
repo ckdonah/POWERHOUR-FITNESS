@@ -102,25 +102,33 @@
   }
   
 
-  .section {
+  .section , .bookings {
     margin-top: 20px;
   }
   
-  .section h3 {
+  .section h3 , .bookings h3{
     font-size: 1.5em;
     color: #333;
   }
   
-  .section ul {
+  .section ul , .bookings ul, .programs ul{
     list-style-type: none;
     padding: 0;
   }
   
-  .section li {
+  .section li, .bookings li {
     background-color: #fff;
     margin-bottom: 3px;
-    padding: 5px;
+    padding: 3px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+
+
+
+  .back-to-homepage {
+    font-size: 18px;
+    text-decoration: none;
   }
   

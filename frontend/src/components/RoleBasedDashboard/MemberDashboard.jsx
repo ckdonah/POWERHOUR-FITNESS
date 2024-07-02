@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../../components/RoleBasedDashboard/Dashboard.css";
 import defaultProfileImage from "../../assets/profile.jpg";
 
@@ -85,12 +85,16 @@ const MemberDashboard = () => {
     }
   };
 
-  const profilePictureUrl = user.picture && user.picture !== 'default.jpg'
-    ? `http://localhost:7500/${user.picture}`
-    : defaultProfileImage;
+  const profilePictureUrl =
+    user.picture && user.picture !== "default.jpg"
+      ? `http://localhost:7500/${user.picture}`
+      : defaultProfileImage;
 
   return (
     <div className="dashboard">
+      <Link to="/" className="back-to-homepage">
+        &lt;Home
+      </Link>
       <div className="dashboard-header">
         <h2>
           Welcome, <span className="user-firstname">{user.firstName}</span>!
@@ -101,7 +105,11 @@ const MemberDashboard = () => {
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {user.email} ({user.role})
-            <img src={profilePictureUrl} alt="Profile" className="profile-icon" />
+            <img
+              src={profilePictureUrl}
+              alt="Profile"
+              className="profile-icon"
+            />
           </button>
           {menuOpen && (
             <div className="dropdown-menu">

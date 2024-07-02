@@ -79,6 +79,7 @@
   cursor: pointer;
 }
 
+
 @media (max-width: 1024px) {
   .nav {
     display: none;
@@ -100,6 +101,7 @@
   }
   .nav.open {
     display: flex;
+    align-items: center;
   }
 
   .logo-box {
@@ -148,8 +150,10 @@
     ;
   }
 
+  
   .nav.open {
     display: flex;
+    align-items: center;
   }
 .logo-box {
     height: 35px;
