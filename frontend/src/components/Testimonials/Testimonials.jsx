@@ -105,7 +105,7 @@ function Testimonials() {
             <div className="img-container">
               {currentReview.userId && currentReview.userId.picture && (
                 <img
-                  src={`http://localhost:7500/${currentReview.userId.picture}`} 
+                  src={`http://localhost:7500/uploads/${currentReview.userId.picture}`} 
                   alt={`${currentReview.userId.firstName} ${currentReview.userId.lastName}`}
                   onError={(e) => {
                     e.target.onerror = null;
