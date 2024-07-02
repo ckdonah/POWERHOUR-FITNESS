@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../../components/RoleBasedDashboard/Dashboard.css";
 import defaultProfileImage from "../../assets/profile.jpg";
 
@@ -83,6 +83,9 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard">
+      <Link to="/" className="back-to-homepage">
+        &lt;Home
+      </Link>
       <div className="dashboard-header">
         <h2>
           Welcome, <span className="user-firstname">{user.firstName}</span>!
