@@ -86,8 +86,8 @@ const MemberDashboard = () => {
   };
 
   const profilePictureUrl =
-    user.picture && user.picture !== "default.jpg"
-      ? `http://localhost:7500/${user.picture}`
+    user.picture !== ""
+      ? `http://localhost:7500/user/picture/${user._id}`
       : defaultProfileImage;
 
   return (

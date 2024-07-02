@@ -28,7 +28,7 @@ const UpdateProfilePic = () => {
       if (files.length > 0) {
         const fileData = new FormData();
         fileData.append('file', files[0].file);
-
+console.log("ffffffffffff",files[0].file)
         const uploadResponse = await axios.post('http://localhost:7500/user/upload', fileData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

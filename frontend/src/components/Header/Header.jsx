@@ -27,12 +27,10 @@ function Header() {
   };
 
   // Conditionally set the profile picture URL based on the user role
-  const profilePictureUrl = user ? 
-    (user.role === 'trainer' || user.role === 'admin'
-      ? `http://localhost:7500/uploads/${user.picture}`
-      : `http://localhost:7500/${user.picture}`)
-    : defaultProfileImage;
-
+  const profilePictureUrl = user ? user.picture !== ""? `http://localhost:7500/user/picture/${user._id}`:defaultProfileImage:null;
+    
+    
+console.log("headeruser",user)
   return (
     <header className="header">
       <a href="#hero" className="logo-link">

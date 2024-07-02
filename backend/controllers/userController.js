@@ -1,7 +1,7 @@
 import User from "../models/user.js";
 import Course from "../models/course.js"
 import asyncHandler from "../config/asyncHandler.js";
-import path from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -11,7 +11,7 @@ import crypto from "crypto";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename);
-
+console.log("2222222222",__dirname)
 const { JWT_SECRET, PORT, RESEND_API_KEY } = process.env;
 
 const signup = asyncHandler(async (req, res) => {
@@ -35,7 +35,7 @@ const signup = asyncHandler(async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      picture: "default.jpg",
+      picture: "",
 
     });
 
@@ -212,7 +212,7 @@ const uploadPictureById = asyncHandler(async (req, res) => {
     if (!filePath) {
       return res.status(400).json({ error: "No file uploaded" });
     }
-
+console.log("33333333333333",filePath)
     const updatedUser = await User.findByIdAndUpdate(
       id,
       {
@@ -242,7 +242,8 @@ const uploadProfilePicture = asyncHandler(async (req, res) => {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const filePath = req.file.path;
+    const filePath = req.file.filename;
+    console.log("44444444444444",req.file)
     res.status(200).json({ filePath });
   } catch (error) {
     res
@@ -309,8 +310,8 @@ const getPictureById = async (req, res) => {
     console.log("id", id);
     const user = await User.findOne({ _id: id });
     console.log(user);
-    const picturePath = path.join(__dirname, `../uploads/${user.picture}`);
-
+    const picturePath = path.join(__dirname, "..","uploads",`${user.picture}`);
+console.log("pictureeeeeeeeeeeee",picturePath)
     // console.log(picturePath)
     // console.log(user.picture);
     res.sendFile(picturePath);
