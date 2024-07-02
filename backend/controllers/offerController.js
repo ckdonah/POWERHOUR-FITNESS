@@ -23,10 +23,10 @@ const getAllOffers = async (req, res) => {
 const updateOfferById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, picture, date, duration } = req.body;
+    const { deadline, activity, season, monthlyPrice, cMonthlyPrice, pMonthlyPrice } = req.body;
     const updatedOffer = await Offer.findByIdAndUpdate(
       id,
-      { title, description, picture, date, duration },
+      { deadline, activity, season, monthlyPrice, cMonthlyPrice, pMonthlyPrice },
       { new: true }
     );
 
