@@ -106,9 +106,11 @@ const TrainerDashboard = () => {
       setError("Error approving booking");
     }
   };
- const profilePictureUrl = user.picture && user.picture !== 'default.jpg'
-    ? `http://localhost:7500/uploads/${user.picture}`
-    : defaultProfileImage;
+
+  const profilePictureUrl =
+    user?.picture && user.picture !== "default.jpg"
+      ? `http://localhost:7500/uploads/${user.picture}`
+      : defaultProfileImage;
 
   return (
     <div className="dashboard">
@@ -117,14 +119,14 @@ const TrainerDashboard = () => {
       </Link>
       <div className="dashboard-header">
         <h2>
-          Welcome, <span className="user-firstname">{user.firstName}</span>!
+          Welcome, <span className="user-firstname">{user?.firstName}</span>!
         </h2>
         <div className="dropdown">
           <button
             className="dropdown-button"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {user.email} ({user.role})
+            {user?.email} ({user?.role})
             <img
               src={profilePictureUrl}
               alt="Profile"
@@ -133,7 +135,6 @@ const TrainerDashboard = () => {
           </button>
           {menuOpen && (
             <div className="dropdown-menu">
-              {" "}
               <button onClick={() => handleMenuClick("/approve-bookings")}>
                 Approve Bookings
               </button>
@@ -175,8 +176,8 @@ const TrainerDashboard = () => {
               .filter((booking) => booking.status === "Pending")
               .map((booking) => (
                 <li key={booking._id}>
-                  {booking.courseId.name} - {booking.userId.firstName}{" "}
-                  {booking.userId.lastName}
+                  {booking.courseId?.name} - {booking.userId?.firstName}{" "}
+                  {booking.userId?.lastName}
                   <button onClick={() => handleApproveBooking(booking._id)}>
                     Approve
                   </button>

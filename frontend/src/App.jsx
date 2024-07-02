@@ -121,7 +121,7 @@ function App() {
               }
             />
             <Route
-              path="/book-program"
+              path="/book-program/:id"
               element={
                 <ProtectedRoute role="member">
                   <BookProgram />
