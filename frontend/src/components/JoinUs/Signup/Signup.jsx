@@ -4,7 +4,8 @@ import { useSnackbar } from "notistack";
 import Logo from "../../../assets/logo.png";
 import "./Signup.css";
 import axios from "axios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -12,9 +13,16 @@ function SignUp() {
     lastName: "",
     email: "",
     password: "",
-    repeatPassword: "",
     terms: false
   });
+
+  const [passwordValidations, setPasswordValidations] = useState({
+    length: false,
+    upper: false,
+    special: false
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -24,14 +32,22 @@ function SignUp() {
       ...formData,
       [name]: type === "checkbox" ? checked : value
     });
+
+    if (name === "password") {
+      validatePassword(value);
+    }
+  };
+
+  const validatePassword = (password) => {
+    setPasswordValidations({
+      length: password.length >= 8,
+      upper: /[A-Z]/.test(password),
+      special: /[\W_]/.test(password)
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.repeatPassword) {
-      enqueueSnackbar("Passwords do not match!", { variant: "error" });
-      return;
-    }
     try {
       const response = await axios.post("http://localhost:7500/user/signup", formData);
       enqueueSnackbar(response.data.message, { variant: "success" });
@@ -40,14 +56,17 @@ function SignUp() {
         lastName: "",
         email: "",
         password: "",
-        repeatPassword: "",
         terms: false
       });
-      navigate("/login"); 
+      navigate("/login");
     } catch (error) {
       console.error(error);
       enqueueSnackbar(error.response.data.message, { variant: "error" });
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -79,14 +98,35 @@ function SignUp() {
           </label>
           <label>
             Password:
-            <input type="password" name="password" value={formData.password} onChange={handleChange} />
+            <div className="password-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                onClick={togglePasswordVisibility}
+                className="password-toggle-icon"
+              />
+            </div>
           </label>
-          <label>
-            Repeat Password:
-            <input type="password" name="repeatPassword" value={formData.repeatPassword} onChange={handleChange} />
-          </label>
+          <div className="password-requirements">
+            <ul>
+              <li className={passwordValidations.length ? "valid" : "invalid"}>
+                At least 8 characters
+              </li>
+              <li className={passwordValidations.upper ? "valid" : "invalid"}>
+                At least one uppercase letter
+              </li>
+              <li className={passwordValidations.special ? "valid" : "invalid"}>
+                At least one special character
+              </li>
+            </ul>
+          </div>
           <label className="terms">
-            <input type="checkbox" required  name="terms" checked={formData.terms} onChange={handleChange} />
+            <input type="checkbox" required name="terms" checked={formData.terms} onChange={handleChange} />
             By using it, you agree to our Privacy Policy as well as our Terms and Conditions
           </label>
           <button type="submit" className="signup-button">

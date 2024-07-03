@@ -11,8 +11,13 @@ import crypto from "crypto";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename);
-console.log("2222222222",__dirname)
 const { JWT_SECRET, PORT, RESEND_API_KEY } = process.env;
+
+// Password validation function
+const validatePassword = (password) => {
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+  return regex.test(password);
+};
 
 const signup = asyncHandler(async (req, res) => {
   try {
@@ -21,9 +26,14 @@ const signup = asyncHandler(async (req, res) => {
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "User already exists with this email" });
+      return res.status(400).json({ message: "User already exists with this email" });
+    }
+
+    // Validate the password
+    if (!validatePassword(password)) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters, one uppercase letter, and one special character.",
+      });
     }
 
     // Hash the password
@@ -36,7 +46,6 @@ const signup = asyncHandler(async (req, res) => {
       email,
       password: hashedPassword,
       picture: "",
-
     });
 
     await newUser.save();
