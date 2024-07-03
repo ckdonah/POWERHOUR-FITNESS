@@ -5,7 +5,7 @@ import Logo from "../../../assets/logo.png";
 import "./Signup.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -23,6 +23,7 @@ function SignUp() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ function SignUp() {
     });
 
     if (name === "password") {
+      setShowPasswordRequirements(true);
       validatePassword(value);
     }
   };
@@ -104,6 +106,8 @@ function SignUp() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                onFocus={() => setShowPasswordRequirements(true)}
+                onBlur={() => setShowPasswordRequirements(formData.password.length > 0)}
               />
               <FontAwesomeIcon
                 icon={showPassword ? faEyeSlash : faEye}
@@ -112,19 +116,21 @@ function SignUp() {
               />
             </div>
           </label>
-          <div className="password-requirements">
-            <ul>
-              <li className={passwordValidations.length ? "valid" : "invalid"}>
-                At least 8 characters
-              </li>
-              <li className={passwordValidations.upper ? "valid" : "invalid"}>
-                At least one uppercase letter
-              </li>
-              <li className={passwordValidations.special ? "valid" : "invalid"}>
-                At least one special character
-              </li>
-            </ul>
-          </div>
+          {showPasswordRequirements && formData.password && (
+            <div className="password-requirements">
+              <ul>
+                <li className={passwordValidations.length ? "valid" : "invalid"}>
+                  <FontAwesomeIcon icon={passwordValidations.length ? faCheck : faTimes} /> At least 8 characters
+                </li>
+                <li className={passwordValidations.upper ? "valid" : "invalid"}>
+                  <FontAwesomeIcon icon={passwordValidations.upper ? faCheck : faTimes} /> At least one uppercase letter
+                </li>
+                <li className={passwordValidations.special ? "valid" : "invalid"}>
+                  <FontAwesomeIcon icon={passwordValidations.special ? faCheck : faTimes} /> At least one special character
+                </li>
+              </ul>
+            </div>
+          )}
           <label className="terms">
             <input type="checkbox" required name="terms" checked={formData.terms} onChange={handleChange} />
             By using it, you agree to our Privacy Policy as well as our Terms and Conditions

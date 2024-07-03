@@ -102,21 +102,30 @@ p a:hover {
   cursor: pointer;
 }
 
-.password-input-container {
+
+
+
+
+
+
+
+
+.password-requirements ul {
+  list-style: none;
+  padding: 0;
+}
+
+.password-requirements li {
   display: flex;
   align-items: center;
+  color: red;
 }
 
-.password-input-container input {
-  flex: 1;
-}
-
-
-
-.valid {
+.password-requirements li.valid {
   color: green;
 }
 
-.invalid {
-  color: red;
+.password-requirements li .fa-check,
+.password-requirements li .fa-times {
+  margin-right: 8px;
 }
