@@ -21,7 +21,7 @@ const Offers = () => {
     fetchOffers();
   }, []);
   return (
-    <div className="offers-container" id ="offers">
+    <div className="offers-container page-section" id ="offers">
       <div className="programs-header">
         <span className="stroke-text">READY TO START</span>
         <span>YOUR JOURNEY</span>

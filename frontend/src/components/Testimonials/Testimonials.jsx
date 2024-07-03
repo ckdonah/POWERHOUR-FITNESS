@@ -89,7 +89,7 @@ function Testimonials() {
   }
 
   return (
-    <div className="review-page" id="testimonials">
+    <div className="review-page page-section" id="testimonials">
       <div className="t-header">
         <h2>Testimonials</h2>
         <span className="text-5">
