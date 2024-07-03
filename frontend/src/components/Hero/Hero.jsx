@@ -58,7 +58,7 @@ function Hero() {
             <div>
               <strong>+{stats.programs}</strong>
               <br />
-              FITNESS PROGRAMS
+              FITNESS COURSES
             </div>
           </div>
         </div>
