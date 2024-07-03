@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './ManageBookings.css';
 
 const ManageBookings = () => {
@@ -47,15 +47,15 @@ const ManageBookings = () => {
     navigate('/programs'); // Navigate to the programs page
   };
 
-  const handleBackToDashboard = () => {
-    navigate('/dashboard/member'); // Navigate back to the member dashboard
-  };
+  // const handleBackToDashboard = () => {
+  //   navigate('/dashboard/member'); // Navigate back to the member dashboard
+  // };
 
   return (
     <div className="manage-bookings">
-      <button onClick={handleBackToDashboard} className="back-button">
-        &lt; Back to Dashboard
-      </button>
+     <div className="back-to-dashboard">
+        <Link to="/dashboard/member" className="back-link">{"<"}</Link>
+      </div>
       <h2>Manage Bookings</h2>
       <button onClick={handleBookCourse} className="book-course-button">
         Book a Course
@@ -65,7 +65,7 @@ const ManageBookings = () => {
           <div key={booking._id} className="booking-card">
             <p>{booking.courseId.name}</p>
             <p>{booking.status}</p>
-            <button onClick={() => handleDelete(booking._id)}>Cancel</button>
+            <button  onClick={() => handleDelete(booking._id)} className="book-course-red">Cancel</button>
           </div>
         ))
       ) : (

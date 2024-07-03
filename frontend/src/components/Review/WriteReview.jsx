@@ -84,8 +84,8 @@ const WriteReview = () => {
 
   return (
     <div className="write-review-container">
-      <div className="back-to-dashboard">
-        <Link to="/dashboard/member" style={{ fontSize: '24px', textDecoration: 'none' }}>{"<"}</Link>
+     <div className="back-to-dashboard">
+        <Link to="/dashboard/member">{"<"}</Link>
       </div>
       <h2>{id ? "Update Review" : "Write a Review"}</h2>
       <img src={profilePictureUrl} alt="Profile" className="profile-icon" />

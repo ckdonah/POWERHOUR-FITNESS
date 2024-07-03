@@ -9,6 +9,7 @@ import contactRouter from './routes/contactRouter.js';
 import bookingRouter from './routes/bookingRouter.js';
 import userRouter from './routes/userRouter.js';
 import trainerRouter from './routes/trainerRouter.js';
+import statsRouter from './routes/statsRoutes.js'; 
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import path from 'path';
@@ -39,6 +40,7 @@ app.use('/event', eventRouter);
 app.use('/contact', contactRouter);
 app.use('/booking', bookingRouter);
 app.use('/trainer', trainerRouter);
+app.use('/api', statsRouter); 
 
 app.listen(PORT, () =>
   console.log(

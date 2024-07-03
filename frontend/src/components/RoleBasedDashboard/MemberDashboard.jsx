@@ -64,27 +64,6 @@ const MemberDashboard = () => {
     navigate(route);
   };
 
-  const handleDeleteAccount = async () => {
-    try {
-      const url = `http://localhost:7500/user/${user._id}`;
-      const response = await axios.delete(url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      logout();
-      navigate("/");
-    } catch (error) {
-      console.error(
-        "Error deleting account",
-        error.response ? error.response.data : error.message
-      );
-      setError(
-        error.response ? error.response.data.error : "Error deleting account"
-      );
-    }
-  };
-
   const profilePictureUrl =
     user.picture !== ""
       ? `http://localhost:7500/user/picture/${user._id}`
@@ -92,9 +71,9 @@ const MemberDashboard = () => {
 
   return (
     <div className="dashboard">
-      <Link to="/" className="back-to-homepage">
-        &lt;Home
-      </Link>
+     <div className="back-to-dashboard">
+        <Link to="/" className="back-link">{"<"}</Link>
+      </div>
       <div className="dashboard-header">
         <h2>
           Welcome, <span className="user-firstname">{user.firstName}</span>!
@@ -125,7 +104,9 @@ const MemberDashboard = () => {
               <button onClick={() => handleMenuClick("/write-review")}>
                 Write a Review
               </button>
-              <button onClick={handleDeleteAccount}>Delete Account</button>
+              <button onClick={() => handleMenuClick("/delete-account")}>
+                Delete Account
+              </button>
               <hr />
               <button onClick={logout}>Log out</button>
             </div>

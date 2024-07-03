@@ -29,6 +29,7 @@ import ApproveBookings from "./components/Managebookings/ApproveBookings.jsx";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
+import DeleteAccount from "./components/DeleteAccount/DeleteAccount";
 import WriteReview from "./components/Review/WriteReview";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
@@ -59,7 +60,7 @@ function App() {
             <Route
               path="/dashboard/admin"
               element={
-                <ProtectedRoute role="admin">
+                <ProtectedRoute roles={["admin"]}>
                   <AdminDashboard />
                 </ProtectedRoute>
               }
@@ -67,7 +68,7 @@ function App() {
             <Route
               path="/dashboard/trainer"
               element={
-                <ProtectedRoute role="trainer">
+                <ProtectedRoute roles={["trainer"]}>
                   <TrainerDashboard />
                 </ProtectedRoute>
               }
@@ -75,7 +76,7 @@ function App() {
             <Route
               path="/dashboard/member"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member"]}>
                   <MemberDashboard />
                 </ProtectedRoute>
               }
@@ -83,7 +84,7 @@ function App() {
             <Route
               path="/manage-bookings"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member"]}>
                   <ManageBookings />
                 </ProtectedRoute>
               }
@@ -91,7 +92,7 @@ function App() {
             <Route
               path="/update-profile-pic"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member", "trainer"]}>
                   <UpdateProfilePic />
                 </ProtectedRoute>
               }
@@ -99,15 +100,23 @@ function App() {
             <Route
               path="/update-profile"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member", "trainer"]}>
                   <UpdateProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/delete-account"
+              element={
+                <ProtectedRoute roles={["member", "trainer"]}>
+                  <DeleteAccount />
                 </ProtectedRoute>
               }
             />
             <Route
               path="/write-review"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member"]}>
                   <WriteReview />
                 </ProtectedRoute>
               }
@@ -115,7 +124,7 @@ function App() {
             <Route
               path="/write-review/:id"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member"]}>
                   <WriteReview />
                 </ProtectedRoute>
               }
@@ -123,7 +132,7 @@ function App() {
             <Route
               path="/book-program/:id"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member"]}>
                   <BookProgram />
                 </ProtectedRoute>
               }
@@ -131,7 +140,7 @@ function App() {
             <Route
               path="/update-booking/:id"
               element={
-                <ProtectedRoute role="member">
+                <ProtectedRoute roles={["member"]}>
                   <UpdateBooking />
                 </ProtectedRoute>
               }
@@ -139,7 +148,7 @@ function App() {
             <Route
               path="/approve-bookings"
               element={
-                <ProtectedRoute role="trainer">
+                <ProtectedRoute roles={["trainer"]}>
                   <ApproveBookings />
                 </ProtectedRoute>
               }
