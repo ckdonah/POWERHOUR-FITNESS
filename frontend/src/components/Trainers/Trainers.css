@@ -33,6 +33,7 @@
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
+
 .trainer-card h3 {
   margin-top: 0;
 }
@@ -47,8 +48,13 @@
 .arrow-icon:hover {
   color: #e600e6;
 }
-
-
+.trainer-card p {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
 @media (max-width: 1024px) {
   .trainer-card {
     width: calc(33.333% - 2rem);

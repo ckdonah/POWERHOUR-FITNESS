@@ -114,9 +114,9 @@ const TrainerDashboard = () => {
 
   return (
     <div className="dashboard">
-      <Link to="/" className="back-to-homepage">
-        &lt;Home
-      </Link>
+      <div className="back-to-dashboard">
+        <Link to="/" className="back-link">{"<"}</Link>
+      </div>
       <div className="dashboard-header">
         <h2>
           Welcome, <span className="user-firstname">{user?.firstName}</span>!

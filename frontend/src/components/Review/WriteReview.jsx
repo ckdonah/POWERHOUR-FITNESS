@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useSnackbar } from 'notistack';
 import { useNavigate, useParams, Link } from "react-router-dom";
 import ReactStars from "react-stars";
+import { AuthContext } from "../../contexts/AuthContext";
+import defaultProfileImage from "../../assets/profile.jpg";
 import "./WriteReview.css";
 
 const WriteReview = () => {
@@ -11,6 +13,12 @@ const WriteReview = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { id } = useParams(); // to get the review id if updating
+  const { user } = useContext(AuthContext);
+
+  const profilePictureUrl =
+    user.picture !== ""
+      ? `http://localhost:7500/user/picture/${user._id}`
+      : defaultProfileImage;
 
   useEffect(() => {
     console.log("WriteReview component mounted");
@@ -76,10 +84,11 @@ const WriteReview = () => {
 
   return (
     <div className="write-review-container">
-      <div className="back-to-dashboard">
-        <Link to="/dashboard/member" style={{ fontSize: '24px', textDecoration: 'none' }}>{"<"}</Link>
+     <div className="back-to-dashboard">
+        <Link to="/dashboard/member">{"<"}</Link>
       </div>
       <h2>{id ? "Update Review" : "Write a Review"}</h2>
+      <img src={profilePictureUrl} alt="Profile" className="profile-icon" />
       <form onSubmit={handleSubmit}>
         <label>
           Rating:

@@ -12,6 +12,15 @@ const postBooking = async (req, res) => {
       return res.status(400).json({ error: "courseId, date, and duration are required fields." });
     }
 
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    if (course.capacity <= 0) {
+      return res.status(400).json({ error: "This course is fully booked" });
+    }
+
     const newBooking = new Booking({
       courseId,
       userId,
@@ -21,6 +30,11 @@ const postBooking = async (req, res) => {
     });
 
     const savedBooking = await newBooking.save();
+
+    // Decrement course capacity
+    course.capacity -= 1;
+    await course.save();
+
     res.status(201).json(savedBooking);
   } catch (error) {
     console.error('Error creating booking:', error);
@@ -30,6 +44,7 @@ const postBooking = async (req, res) => {
     });
   }
 };
+
 
 // Function to get all bookings for a user
 const getBookingsByUser = async (req, res) => {

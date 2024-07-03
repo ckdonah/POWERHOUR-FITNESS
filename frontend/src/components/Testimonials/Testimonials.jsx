@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHandPointRight } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../contexts/AuthContext"; // Import AuthContext
 import "./Testimonials.css";
 import PrevNextButtons from "./PrevNextButtons";
 
@@ -10,6 +11,7 @@ function Testimonials() {
   const [reviews, setReviews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // Use AuthContext to get user info
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -25,7 +27,11 @@ function Testimonials() {
   }, []);
 
   const handleReviewClick = () => {
-    navigate("/login");
+    if (user) {
+      navigate("/write-review");
+    } else {
+      navigate("/login");
+    }
   };
 
   const handlePrevClick = () => {
@@ -105,7 +111,7 @@ function Testimonials() {
             <div className="img-container">
               {currentReview.userId && currentReview.userId.picture && (
                 <img
-                  src={`http://localhost:7500/${currentReview.userId.picture}`} 
+                  src={`http://localhost:7500/uploads/${currentReview.userId.picture}`} 
                   alt={`${currentReview.userId.firstName} ${currentReview.userId.lastName}`}
                   onError={(e) => {
                     e.target.onerror = null;

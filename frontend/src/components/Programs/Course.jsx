@@ -61,7 +61,7 @@ function Course() {
             <p>Date: {new Date(date).toLocaleDateString()}</p>
             <p>Duration: {duration} minutes</p>
             <p>Capacity: {capacity}</p>
-            <button onClick={handleBookNow}>Book Now</button>
+            <button className="course-button" onClick={handleBookNow}>Book Now</button>
           </div>
         </div>
       </div>

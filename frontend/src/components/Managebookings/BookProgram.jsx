@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
@@ -10,6 +10,7 @@ const BookProgram = () => {
   const courseData = location.state?.course;
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const [courseCapacity, setCourseCapacity] = useState(courseData?.capacity || 0);
 
   useEffect(() => {
     if (!courseData) {
@@ -18,6 +19,11 @@ const BookProgram = () => {
   }, [courseData, navigate]);
 
   const handleBooking = async () => {
+    if (courseCapacity <= 0) {
+      enqueueSnackbar('This course is fully booked', { variant: 'error' });
+      return;
+    }
+
     try {
       const requestData = {
         courseId: courseData._id,
@@ -30,6 +36,8 @@ const BookProgram = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
+
+      setCourseCapacity(prevCapacity => prevCapacity - 1);
       enqueueSnackbar('Booking request sent successfully', { variant: 'success' });
       navigate('/manage-bookings');
     } catch (error) {
@@ -44,14 +52,21 @@ const BookProgram = () => {
 
   return (
     <div className="book-program-container">
-      <h2>Book a Course</h2>
+      <div className="back-button" onClick={() => navigate(-1)}>
+        &lt; Back
+      </div>
+      <h2>Book Your Course</h2>
       <div className="course-details">
-        <img src={`http://localhost:7500/uploads/${courseData.coursePic}`} alt={courseData.name} />
+        <div className="course-image-wrapper">
+          <img className="course-image" src={`http://localhost:7500/uploads/${courseData.coursePic}`} alt={courseData.name} />
+        </div>
         <h3>{courseData.name}</h3>
         <p>Date: {new Date(courseData.date).toLocaleDateString()}</p>
         <p>Duration: {courseData.duration} minutes</p>
-        <p>Capacity: {courseData.capacity}</p>
-        <button onClick={handleBooking}>Book Now</button>
+        <p>Capacity: {courseCapacity}</p>
+        <button onClick={handleBooking} disabled={courseCapacity <= 0}>
+          {courseCapacity <= 0 ? 'Fully Booked' : 'Book Now'}
+        </button>
       </div>
     </div>
   );
