@@ -37,7 +37,7 @@ const Trainers = () => {
   );
 
   return (
-    <section className="trainers" id="trainers">
+    <section className="trainers page-section" id="trainers">
       <h2>Your Trainers</h2>
       <div className="trainer-list-wrapper">
         <FontAwesomeIcon icon={faArrowLeft} onClick={prevTrainers} className="arrow-icon" />

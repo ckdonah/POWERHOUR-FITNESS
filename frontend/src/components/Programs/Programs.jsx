@@ -7,7 +7,7 @@ import cardioImage from "../../assets/cardio.jpeg";
 
 function Programs() {
   return (
-    <section className="programs" id="programs">
+    <section className="programs page-section" id="programs">
       <h2>Explore Our Programs</h2>
       <div className="program-list">
         <Link to="/programs/yoga" className="program-card yoga-card">

@@ -6,7 +6,7 @@
   justify-content: center;
   text-transform: uppercase;
   font-style: italic;
-  padding-top: 8rem;
+  /* padding-top: 8rem; */
   text-align: center;
   flex-wrap: wrap;
 }
@@ -153,6 +153,11 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.offers ol {
+  margin: 0;
+  padding: 1rem;
 }
 
 @media screen and (max-width: 1024px) {

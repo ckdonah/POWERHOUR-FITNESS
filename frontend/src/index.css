@@ -11,6 +11,7 @@ body {
   font-family: "Lato", "roboto", sans-serif;
   background-color: var(--light-grey);
   background-color: #f7f7f7;
+  line-height: 1.5;
 }
 
 a {
@@ -53,3 +54,18 @@ input, textarea {
 }
 
 
+.page-section {
+  padding: 5rem;
+  scroll-margin-top: 40px;
+}
+
+p {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.25em;
+}
+
+.page-section h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.5em;
+  margin-bottom: 1rem;
+}

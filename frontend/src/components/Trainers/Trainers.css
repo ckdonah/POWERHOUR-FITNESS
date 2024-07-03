@@ -1,6 +1,6 @@
 .trainers {
   text-align: center;
-  padding: 10rem;
+  /* padding: 10rem; */
 }
 
 .trainer-list-wrapper {
@@ -22,6 +22,7 @@
   margin: 1rem;
   /* border-radius: 10px; */
   width: 25%;
+  height: 100%;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   text-decoration: none;
   color: inherit;
@@ -51,9 +52,7 @@
 .trainer-card p {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
 }
 @media (max-width: 1024px) {
   .trainer-card {
