@@ -45,7 +45,7 @@
   transform: scale(1);
   transition: transform 0.2s ease-in-out;
   box-shadow: 0 0.7rem 0.7rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
 }
 
 .offer:hover {
